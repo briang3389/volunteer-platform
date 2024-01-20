@@ -1,8 +1,11 @@
-import { PG_USER, PG_DB, PG_HOST, PG_PASSWORD, PG_PORT } from '$env/static/private';
+import { PG_USER, PG_DB, PG_HOST, PG_PASSWORD, PG_PORT, JWT_SECRET } from '$env/static/private';
 import { Pool } from "pg";
-import { error } from '@sveltejs/kit';
+import { error, type Cookies } from '@sveltejs/kit';
 import * as argon2 from "argon2";
 import { randomBytes } from 'crypto';
+import jwt from "jsonwebtoken";
+
+export const TOKEN_COOKIE_NAME = "token";
 
 // place files you want to import through the `$lib` alias in this folder.
 
@@ -43,4 +46,19 @@ export async function verifyPassword(hashedPassword: String, checkPassword: Stri
 
     const newHash = await argon2.hash(salt + checkPassword);
     return hash == newHash;
+}
+
+export function getLoggedInId(cookies: Cookies): Number | null {
+    const cookie = cookies.get(TOKEN_COOKIE_NAME);
+    if (cookie === undefined) {
+        return null;
+    } else {
+        const tokenData = jwt.verify(cookie, JWT_SECRET) as any;
+        const userid = tokenData["userid"] as string | undefined;
+        if (userid == null) {
+            return null;
+        } else {
+            return Number(userid);
+        }
+    }
 }
