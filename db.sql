@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS Users (
     email VARCHAR(32) NOT NULL,
     password VARCHAR(255) NOT NULL,
     icon_url VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     PRIMARY KEY (userid)
 );
 
