@@ -1,16 +1,18 @@
 
 <script lang="ts">
     async function get(): Promise<{ status: number, body: any }> {
-        const res = await fetch("/api/insertorg", {
+        const res = await fetch("/api/genqr", {
                 method: "POST",
-                body: JSON.stringify({ name: "Jtes", password: "bruh", description: "123" }),
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                body: JSON.stringify({
+                    data: "test"
+                })
         });
         return {
             status: await res.status,
-            body: await res.text()
+            body: await res.json()
         };
     }
     
@@ -19,7 +21,7 @@
 {#await get()}
 	<p>...waiting</p>
 {:then { status, body }}
-	<p>{status} {body}</p>
+	<img src={body.data} alt='a'>
 {:catch error}
 	<p style="color: red">{error.message}</p>
 {/await}
