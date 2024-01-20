@@ -22,21 +22,22 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
-  <input type="text" bind:value={name} placeholder="Full Name" />
-  <input type="text" bind:value={username} placeholder="Username" />
-  <input type="email" bind:value={email} placeholder="Email" />
-  <input type="password" bind:value={password} placeholder="Password" />
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" bind:value={name} placeholder="Full Name" />
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" bind:value={username} placeholder="Username" />
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" bind:value={email} placeholder="Email" />
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" bind:value={password} placeholder="Password" />
 
-  <label>
-    <input type="radio" bind:group={accountType} value="volunteer" checked>
-    Volunteer
-  </label>
-  <label>
-    <input type="radio" bind:group={accountType} value="organization">
-    Organization
-  </label>
-
-  <button type="submit">Sign Up</button>
+  <div class="flex items-center mt-4">
+    <label class="inline-flex items-center">
+      <input type="radio" class="form-radio" bind:group={accountType} value="volunteer" checked>
+      <span class="ml-2">Volunteer</span>
+    </label>
+    <label class="inline-flex items-center ml-6">
+      <input type="radio" class="form-radio" bind:group={accountType} value="organization">
+      <span class="ml-2">Organization</span>
+    </label>
+  </div>
+  <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full mt-4" type="submit">Sign Up</button>
 </form>
 
 <style>
