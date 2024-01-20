@@ -1,7 +1,7 @@
-create database volunteer;
+-- create database volunteer;
 
 -- Connect to the database
-\c volunteer;
+-- \c volunteer;
 
 CREATE TABLE IF NOT EXISTS Users (
     userid SERIAL,
