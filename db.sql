@@ -1,11 +1,11 @@
--- create database volunteer;
+create database volunteer;
 
--- Connect to the database
--- \c volunteer;
+--Connect to the database
+\c volunteer;
 
 CREATE TABLE IF NOT EXISTS Users (
     userid SERIAL,
-    username VARCHAR(32) NOT NULL UNIQUE,
+    username VARCHAR(32) UNIQUE NOT NULL,
     email VARCHAR(32) NOT NULL,
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (userid)
@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Organizations (
     orgid SERIAL,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255),
     description TEXT NOT NULL,
     PRIMARY KEY (orgid)
 );
@@ -32,6 +33,7 @@ CREATE TABLE IF NOT EXISTS Events (
 CREATE TABLE IF NOT EXISTS EventLog (
     eventid INT NOT NULL REFERENCES Events(eventid),
     userid INT NOT NULL REFERENCES Users(userid),
+    orgid INT NOT NULL REFERENCES Organizations(orgid),
     hours INT NOT NULL,
     verified BOOLEAN NOT NULL,
     date DATE NOT NULL
