@@ -6,11 +6,11 @@ import pg from 'pg';
 
 export const POST = (async ({ request } ) => {
 	const pool: pg.Pool= await getDb();
-	let { eventid } = await request.json();
+	let { name } = await request.json();
 	const query = {
 		name: 'get-event',
-		text: 'SELECT name, description, startdate, enddate, location, orgid FROM Events WHERE eventid = $1;',
-		values: [eventid],
+		text: 'SELECT name, description, startdate, enddate, location, orgid, icon_url FROM Events WHERE name = $1;',
+		values: [name],
 	}
 
 	

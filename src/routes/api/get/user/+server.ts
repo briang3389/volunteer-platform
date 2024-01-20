@@ -3,17 +3,20 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import { getDb } from '$lib/index'
 import pg from 'pg';
+import { getLoggedInId } from '$lib/index';
 
-export const POST = (async ({ request } ) => {
+export const POST = (async ({ request, cookies } ) => {
 	const pool: pg.Pool= await getDb();
-	let { userid } = await request.json();
+	let userid: Number | null  = getLoggedInId(cookies);
+	if (userid == null) {
+		return new Response(JSON.stringify({ success: false, data: []}))
+	}
 	const query = {
 		name: 'get-user',
-		text: 'SELECT username, email FROM Users WHERE userid = $1;',
+		text: 'SELECT username, email, icon_url FROM Users WHERE userid = $1;',
 		values: [userid],
 	}
 
-	
 	try {
 		const res = await (await pool.query(query)).rows;
 		return new Response(JSON.stringify({ success: true, data: res}));
