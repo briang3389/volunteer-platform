@@ -31,7 +31,7 @@
           <button class="text-blue-600 hover:text-blue-800 px-3 py-2 rounded-md text-sm font-medium" on:click={() => goto('/login')}>
             Log In
           </button>
-          <button class="text-green-600 hover:text-green-800 px-3 py-2 rounded-md text-sm font-medium" on:click={() => goto('/signup')}>
+          <button class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium" on:click={() => goto('/signup')}>
             Sign Up
           </button>
         {/if}
