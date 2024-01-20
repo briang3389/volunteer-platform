@@ -1,31 +1,57 @@
 <script>
-  import { registerUser } from '$lib/authService';
+  import { createUser, createOrg } from "$lib/login";
+  import { goto } from '$app/navigation';
+  import { onDestroy } from 'svelte';
 
   let accountType = 'volunteer'; // Default account type
   let name = ''; // Variable to store the user's name
   let username = ''; // Variable to store the username
   let email = ''; // Variable to store the email
   let password = ''; // Variable to store the password
+  let error = false;
+
+  let profilePicUrl = '/default_profile_pic.jpg'; // Variable to store the profile picture URL
 
   // Function to handle form submission
   const handleSubmit = async () => {
-    const userData = { name, username, email, password, accountType };
     try {
-      const result = await registerUser(userData);
-      if (result) {
-        goto('/'); // Redirect to the homepage
+      let success = false;
+      if (accountType === "volunteer") {
+        success = await createUser({
+          name: name,
+          username: username,
+          email: email,
+          password: password,
+        });
+      } else {
+        success = await createOrg({
+          name: username,
+          password: password,
+        });
+      }
+
+      if (success) {
+        goto("/");
+      } else {
+        error = true;
       }
     } catch (error) {
-      console.error(error);
+      error = true;
     }
   };
+
+  onDestroy(() => {
+    // Cleanup or unsubscribing from stores if necessary
+  });
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
-  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" bind:value={name} placeholder="Full Name" />
-  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" bind:value={username} placeholder="Username" />
-  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" bind:value={email} placeholder="Email" />
-  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" bind:value={password} placeholder="Password" />
+<form on:submit|preventDefault={handleSubmit} class="max-w-md mx-auto p-4">
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="text" bind:value={name} placeholder="Full Name" />
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="text" bind:value={username} placeholder="Username" />
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="email" bind:value={email} placeholder="Email" />
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="password" bind:value={password} placeholder="Password" />
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="text" bind:value={profilePicUrl} placeholder="/default_profile_pic.jpg" />
+
 
   <div class="flex items-center mt-4">
     <label class="inline-flex items-center">
@@ -38,6 +64,11 @@
     </label>
   </div>
   <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full mt-4" type="submit">Sign Up</button>
+  {#if error}
+    <div class="w-full py-4 flex place-content-center">
+      <p class="text-red-600">Incorrect Username or Password</p>
+    </div>
+  {/if}
 </form>
 
 <style>
@@ -45,7 +76,9 @@
   label {
     margin-right: 10px;
   }
-  input {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
     display: block;
     margin-bottom: 10px;
   }
