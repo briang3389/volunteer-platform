@@ -27,7 +27,7 @@
 
 <div class="container mx-auto p-4">
   <div class="w-full max-w-xs mx-auto">
-    <h1 class="text-xl font-semibold mb-4">You are claiming hours for {event}</h1>
+    <h1 class="text-xl font-semibold mb-4">You are claiming hours for<br>{event}</h1>
     <form on:submit|preventDefault={handleSubmit}>
       <div class="mb-4">
         <label for="hours" class="block text-gray-700 text-sm font-bold mb-2">
