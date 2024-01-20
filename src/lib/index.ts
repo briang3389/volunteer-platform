@@ -26,3 +26,18 @@ export async function getDb(): Promise<pg.Pool> {
 
     return db;
 }
+
+const SALT_BYTE_LEN = 16;
+
+export async function hashPassword(password: String): Promise<String> {
+    const salt = randomBytes(SALT_BYTE_LEN).toString("hex");
+    const hash = await argon2.hash(salt + password);
+    return salt + ":" + hash;
+}
+
+export async function verifyPassword(hashedPassword: String, checkPassword: String): Promise<boolean> {
+    const [salt, hash] = hashedPassword.split(":");
+
+    const newHash = await argon2.hash(salt + checkPassword);
+    return hash == newHash;
+}

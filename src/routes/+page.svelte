@@ -14,14 +14,14 @@
   });
 </script>
 
-<div class="landing-container">
-  <h1>Welcome to Our Volunteer Tracking Platform</h1>
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold text-center mb-4">Welcome to Our Volunteer Tracking Platform</h1>
   {#if username}
-    <p>Welcome back, {username}!</p>
+    <p class="text-center">Welcome back, {username}!</p>
   {:else}
-    <div class="buttons-container">
-      <button on:click={() => goto('/login')}>Log In</button>
-      <button on:click={() => goto('/signup')}>Sign Up</button>
+    <div class="flex justify-center space-x-4 mt-4">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={() => goto('/login')}>Log In</button>
+      <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" on:click={() => goto('/signup')}>Sign Up</button>
     </div>
   {/if}
 </div>
