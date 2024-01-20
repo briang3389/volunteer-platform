@@ -102,6 +102,13 @@ export function apiOk(): Response {
     return new Response(JSON.stringify({success: true}));
 }
 
+export function apiOkData(data: any): Response {
+    return new Response(JSON.stringify({
+        success: true,
+        data: data,
+    }));
+}
+
 export function apiError(): Response {
     return new Response(JSON.stringify({success: false}));
 }
