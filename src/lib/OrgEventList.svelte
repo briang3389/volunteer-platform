@@ -1,6 +1,6 @@
 <script lang="ts">
     async function getEvents() {
-        const response = await fetch('/api/get/user/eventlog', {
+        const response = await fetch('/api/get/event', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -19,28 +19,32 @@
     const events = [
         {
             name: "Event 1",
-            hours: "5",
+            startDate: "Jan 1st",
+            endDate: "Jan 2nd",
             eventId: "1",
         },
         {
             name: "Event 2",
-            hours: "4",
+            startDate: "Jan 1st",
+            endDate: "Jan 2nd",
             eventId: "2",
         },
         {
             name: "Event 3",
-            hours: "3",
+            startDate: "Jan 1st",
+            endDate: "Jan 2nd",
             eventId: "3",
-        }
+        },
     ];
 </script>
 
 <div class="events-container">
-    {#each events as { name, hours, eventId }}
+    {#each events as { name, startDate, endDate, eventId }}
       <div class="event-container">
         <div class="event-block">
           <h2 class="text-2xl font-bold">{name}</h2>
-          <p class="text-lg">Hours: {hours}</p>
+          <p class="text-lg">Start Date: {startDate}</p>
+          <p class="text-lg">End Date: {endDate}</p>
           <a href="../events/{eventId}" class="text-blue-500 underline">Event Page</a>
         </div>
       </div>
