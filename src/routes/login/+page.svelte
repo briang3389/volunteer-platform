@@ -1,4 +1,4 @@
-<!-- src/routes/login.svelte -->
+
 <script>
   import { loginUser } from '$lib/authService';
   import { goto } from '$app/navigation';

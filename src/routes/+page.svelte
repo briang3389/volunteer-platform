@@ -1,4 +1,4 @@
-<!-- src/routes/index.svelte -->
+
 <script>
   import { goto } from '$app/navigation';
   import { userSession } from '$lib/sessionStore';
