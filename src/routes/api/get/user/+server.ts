@@ -7,14 +7,11 @@ import { getLoggedInId } from '$lib/index';
 
 export const POST = (async ({ request, cookies } ) => {
 	const pool: pg.Pool= await getDb();
-	let userid: Number | null  = getLoggedInId(cookies);
-	if (userid == null) {
-		return new Response(JSON.stringify({ success: false, data: []}))
-	}
+	let { username }  = await request.json();
 	const query = {
 		name: 'get-user',
-		text: 'SELECT username, email, icon_url FROM Users WHERE userid = $1;',
-		values: [userid],
+		text: 'SELECT email, icon_url, name FROM Users WHERE username = $1;',
+		values: [username],
 	}
 
 	try {

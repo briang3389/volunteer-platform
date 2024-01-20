@@ -6,11 +6,11 @@ import pg from 'pg';
 
 export const POST = (async ({ request } ) => {
 	const pool: pg.Pool= await getDb();
-	let { name, email, password, icon_url } = await request.json();
+	let { username, email, password, icon_url, name } = await request.json();
 	const query = {
 		name: 'insert-user',
-		text: 'INSERT INTO Users (username, email, password, icon_url) VALUES ($1, $2, $3, $4);',
-		values: [name, email, password, icon_url],
+		text: 'INSERT INTO Users (username, email, password, icon_url, name) VALUES ($1, $2, $3, $4, $5);',
+		values: [username, email, password, icon_url, name],
 	}
 
 	try {
