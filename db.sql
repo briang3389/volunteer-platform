@@ -3,6 +3,10 @@ create database volunteer;
 --Connect to the database
 \c volunteer;
 
+CREATE EXTENSION IF NOT EXISTS "pg_trgm";
+
+SET pg_trgm.similarity_threshold = 0.8;
+
 CREATE TABLE IF NOT EXISTS Users (
     userid SERIAL,
     username VARCHAR(32) UNIQUE NOT NULL,
@@ -13,6 +17,8 @@ CREATE TABLE IF NOT EXISTS Users (
     PRIMARY KEY (userid)
 );
 
+CREATE INDEX user_search_index ON Users USING GIST (name gist_trgm_ops);
+
 CREATE TABLE IF NOT EXISTS Organizations (
     orgid SERIAL,
     name VARCHAR(255) UNIQUE NOT NULL,
@@ -21,6 +27,8 @@ CREATE TABLE IF NOT EXISTS Organizations (
     icon_url VARCHAR(255) NOT NULL,
     PRIMARY KEY (orgid)
 );
+
+CREATE INDEX org_search_index ON Organizations USING GIST (name gist_trgm_ops);
 
 CREATE TABLE IF NOT EXISTS Events (
     eventid SERIAL,
@@ -33,6 +41,8 @@ CREATE TABLE IF NOT EXISTS Events (
     icon_url VARCHAR(255) NOT NULL,
     PRIMARY KEY (eventid)
 );
+
+CREATE INDEX event_search_index ON Events USING GIST (name gist_trgm_ops);
 
 CREATE TABLE IF NOT EXISTS EventLog (
     eventid INT NOT NULL REFERENCES Events(eventid),
