@@ -1,5 +1,5 @@
 <script>
-  import { registerUser } from '$lib/authService';
+  import { createUser, createOrg } from "$lib/login";
   import { goto } from '$app/navigation';
   import { onDestroy } from 'svelte';
 
@@ -8,18 +8,35 @@
   let username = ''; // Variable to store the username
   let email = ''; // Variable to store the email
   let password = ''; // Variable to store the password
+  let error = false;
+
   let profilePicUrl = '/default_profile_pic.jpg'; // Variable to store the profile picture URL
 
   // Function to handle form submission
   const handleSubmit = async () => {
-    const userData = { name, username, email, password, profilePicUrl, accountType };
     try {
-      const result = await registerUser(userData);
-      if (result) {
-        goto('/'); // Redirect to the homepage
+      let success = false;
+      if (accountType === "volunteer") {
+        success = await createUser({
+          name: name,
+          username: username,
+          email: email,
+          password: password,
+        });
+      } else {
+        success = await createOrg({
+          name: username,
+          password: password,
+        });
+      }
+
+      if (success) {
+        goto("/");
+      } else {
+        error = true;
       }
     } catch (error) {
-      console.error(error);
+      error = true;
     }
   };
 
@@ -47,6 +64,11 @@
     </label>
   </div>
   <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full mt-4" type="submit">Sign Up</button>
+  {#if error}
+    <div class="w-full py-4 flex place-content-center">
+      <p class="text-red-600">Incorrect Username or Password</p>
+    </div>
+  {/if}
 </form>
 
 <style>
