@@ -5,7 +5,7 @@
 
 CREATE TABLE IF NOT EXISTS Users (
     userid SERIAL,
-    username VARCHAR(32) NOT NULL,
+    username VARCHAR(32) NOT NULL UNIQUE,
     email VARCHAR(32) NOT NULL,
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (userid)
