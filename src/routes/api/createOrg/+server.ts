@@ -12,7 +12,7 @@ export const POST = (async ({ request, cookies }) => {
     const db = await getDb();
 
     const query = {
-        text: "INSERT INTO Organizations (name, password, description) VALUES ($1, $2, '') RETURNING Organizations.orgid",
+        text: "INSERT INTO Organizations (name, password, description, icon_url) VALUES ($1, $2, '', '') RETURNING Organizations.orgid",
         values: [data.name, await hashPassword(data.password)],
     };
 

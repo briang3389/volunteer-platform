@@ -17,6 +17,7 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "8.56.0",
 		"@types/pg": "^8.10.9",
+		"@types/qrcode": "^1.5.5",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"autoprefixer": "^10.4.17",
@@ -40,6 +41,7 @@
 		"argon2": "^0.31.2",
 		"axios": "^1.6.5",
 		"jsonwebtoken": "^9.0.2",
-		"pg": "^8.11.3"
+		"pg": "^8.11.3",
+		"qrcode": "^1.5.3"
 	}
 }

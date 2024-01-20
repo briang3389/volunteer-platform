@@ -12,8 +12,8 @@ export const POST = (async ({ request, cookies }) => {
     const db = await getDb();
 
     const query = {
-        text: "INSERT INTO Users (username, email, password) VALUES ($1, $2, $3) RETURNING Users.userid",
-        values: [data.username, data.email, await hashPassword(data.password)],
+        text: "INSERT INTO Users (username, name, email, password, icon_url) VALUES ($1, $2, $3, $4, '') RETURNING Users.userid",
+        values: [data.username, data.name, data.email, await hashPassword(data.password)],
     };
 
     let result;
