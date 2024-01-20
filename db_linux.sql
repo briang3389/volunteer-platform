@@ -1,8 +1,3 @@
-create database volunteer;
-
---Connect to the database
-\c volunteer;
-
 CREATE TABLE IF NOT EXISTS Users (
     userid SERIAL,
     username VARCHAR(32) UNIQUE NOT NULL,

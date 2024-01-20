@@ -6,11 +6,12 @@ import pg from 'pg';
 
 export const POST = (async ({ request } ) => {
 	const pool: pg.Pool= await getDb();
-	let { orgid } = await request.json();
+	let { name } = await request.json();
+
 	const query = {
 		name: 'get-org',
-		text: 'SELECT name, description FROM Organizations WHERE orgid = $1;',
-		values: [orgid],
+		text: 'SELECT orgid, description, icon_url FROM Organizations WHERE name = $1;',
+		values: [name],
 	}
 
 	

@@ -1,16 +1,16 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
-import { getDb } from '$lib/index'
+import { getDb, getLoggedInOrgid } from '$lib/index'
 import pg from 'pg';
 
-export const POST = (async ({ request } ) => {
+export const POST = (async ({ request, cookies } ) => {
 	const pool: pg.Pool= await getDb();
-	let { orgid } = await request.json();
+	let { name } = await request.json();
 	const query = {
 		name: 'get-org-events',
-		text: 'SELECT name, description, startdate, enddate, location FROM Events INNER JOIN Organizations ON Events.orgid = Organizations.orgid WHERE Organizations.orgid = $1;',
-		values: [orgid],
+		text: 'SELECT description, startdate, enddate, location, icon_url FROM Events INNER JOIN Organizations ON Events.orgid = Organizations.orgid WHERE Organizations.name = $1;',
+		values: [name],
 	}
 
 	

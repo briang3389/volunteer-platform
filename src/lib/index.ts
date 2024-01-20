@@ -61,6 +61,21 @@ export function getLoggedInId(cookies: Cookies): Number | null {
     }
 }
 
+export function getLoggedInOrgid(cookies: Cookies): Number | null {
+    const cookie = cookies.get(TOKEN_COOKIE_NAME);
+    if (cookie === undefined) {
+        return null;
+    } else {
+        const tokenData = jwt.verify(cookie, JWT_SECRET) as any;
+        const userid = tokenData["orgid"] as string | undefined;
+        if (userid == null) {
+            return null;
+        } else {
+            return Number(userid);
+        }
+    }
+}
+
 export function setLoggedInCokie(cookies: Cookies, userid: Number, userType: AccountType) {
     let data;
     if (userType === "user") {
