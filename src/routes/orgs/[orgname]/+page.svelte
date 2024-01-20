@@ -1,6 +1,6 @@
 <script lang="ts">
     import TopBar from '$lib/TopBar.svelte'
-	import VolunteerEventList from '$lib/VolunteerEventList.svelte';
+	import OrgEventList from '$lib/OrgEventList.svelte';
     import KeywordSearchBar from '$lib/KeywordSearchBar.svelte';
 
     async function getHours() {
@@ -20,10 +20,9 @@
     }
 
     const info = {
-        totalHours: 5,
-        totalOrgs: 2,
+        description: "We are a very good organization!",
         imageUrl: "/default_profile_pic.jpg",
-        name: "Nick Andry",
+        name: "Big Organization",
         email: "me@me.com",
     }
 
@@ -40,14 +39,11 @@
 
     <div class="info-container">
 
-        <div class="totals-container">
-            <div class="totals">
-                <p>Total Hours Volunteered: {info.totalHours}</p>
-                <p>Total Organizations Helped: {info.totalOrgs}</p>
-            </div>
+        <div class="description-container">
+                <p>{info.description}</p>
         </div>
 
-        <VolunteerEventList/>
+        <OrgEventList/>
 
         <div class="contact-container">
             <p class="contact-header">Contact Information</p>
@@ -92,7 +88,8 @@
     padding-right: 3rem;
   }
 
-  .totals-container {
+  .description-container {
+    font-size: 1.5rem;
     text-align: left;
     margin-bottom: 20px;
   }

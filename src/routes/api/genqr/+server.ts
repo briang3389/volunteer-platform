@@ -1,12 +1,12 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
-import { getDb, getLoggedInId } from '$lib/index';
+import { getDb, getLoggedInOrgid } from '$lib/index';
 import { generateQRCode } from '$lib/qr_gen';
 
 export const POST = (async ({ request, cookies } ) => {
 	let eventid = await request.json();
-    let orgid: Number | null  = getLoggedInId(cookies);
+    let orgid: Number | null  = getLoggedInOrgid(cookies);
 	if (orgid == null) {
 		return new Response(JSON.stringify({ success: false, data: null}));
 	}

@@ -1,25 +1,41 @@
-<script>
+<script lang="ts">
   import TopBar from '$lib/TopBar.svelte';
   import { userSession } from '$lib/sessionStore';
   import { onDestroy } from 'svelte';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import type { PageData } from './$types';
+  import {load_user} from '$lib/load_user';
 
   let username = '';
   let eventHours = '';
-  const event = "Big Event"; // This should be dynamic based on your app's state or routing
-
-  // Subscribe to userSession store
-  const unsubscribe = userSession.subscribe($userSession => {
-    username = $userSession ? $userSession.username : '';
-  });
-
-  onDestroy(() => {
-    unsubscribe();
-  });
-
   const handleSubmit = async () => {
-    // Logic to handle submission of hours
-    // You would typically send this data to your backend API
+    const eventid = $page.url.searchParams.get('eventid');
+    const orgid = $page.url.searchParams.get('orgid');
+    const userid = await load_user();
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    const res = await fetch("/api/insert/eventlog", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    eventid,
+                    orgid,
+                    userid,
+                    eventHours,
+                    date: formattedDate
+
+                })
+        });
+        return {
+            status: await res.status,
+            body: await res.json()
+        };
   };
 </script>
 
@@ -27,7 +43,8 @@
 
 <div class="container mx-auto p-4">
   <div class="w-full max-w-xs mx-auto">
-    <h1 class="text-xl font-semibold mb-4">You are claiming hours for<br>{event}</h1>
+    <h1 class="text-xl font-semibold mb-4">Claim hours below:</h1>
+    <div></div>
     <form on:submit|preventDefault={handleSubmit}>
       <div class="mb-4">
         <label for="hours" class="block text-gray-700 text-sm font-bold mb-2">
