@@ -8,17 +8,18 @@ export const POST = (async ({ request } ) => {
 	const pool: pg.Pool= await getDb();
 	let { name, password, description } = await request.json();
 	const query = {
-		name: 'fetch-user',
+		name: 'insert-org',
 		text: 'INSERT INTO Organizations (name, password, description) VALUES ($1, $2, $3);',
 		values: [name, password, description],
 	}
 
-	const res = (await pool.query(query));
+	
 	try {
-		return new Response(JSON.stringify({ command: res.command }));
+		const res = (await pool.query(query));
+		return new Response(JSON.stringify({ success: true}));
 	}
 	catch (e) {
-		throw error(500, "could not insert org");
+		return new Response(JSON.stringify({ success: false }))
 	}
 	
 }) satisfies RequestHandler;

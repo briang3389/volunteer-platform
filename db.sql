@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS Events (
 CREATE TABLE IF NOT EXISTS EventLog (
     eventid INT NOT NULL REFERENCES Events(eventid),
     userid INT NOT NULL REFERENCES Users(userid),
+    orgid INT NOT NULL REFERENCES Organizations(orgid),
     hours INT NOT NULL,
     verified BOOLEAN NOT NULL,
     date DATE NOT NULL
