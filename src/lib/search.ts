@@ -15,38 +15,43 @@ async function search(name: string, args: SearchArgs): Promise<any[]> {
     return (await db.query(query)).rows;
 }
 
-export interface UserSearchResult {
-    userid: Number,
+export interface SearchResult {
+    id: Number,
     name: string,
 }
 
-export async function searchUser(name: string): Promise<UserSearchResult[]> {
-    return search(name, {
+export async function searchUser(name: string): Promise<SearchResult[]> {
+    return (await search(name, {
         idName: "userid",
         tableName: "Users",
+    })).map((user) => {
+        return {
+            id: user.userid,
+            name: user.name,
+        };
     });
 }
 
-export interface OrgSearchResult {
-    userid: Number,
-    name: string,
-}
-
-export async function searchOrg(name: string): Promise<OrgSearchResult[]> {
-    return search(name, {
+export async function searchOrg(name: string): Promise<SearchResult[]> {
+    return (await search(name, {
         idName: "orgid",
         tableName: "Organizations",
+    })).map((org) => {
+        return {
+            id: org.orgid,
+            name: org.name,
+        };
     });
 }
 
-export interface EventSearchResult {
-    eventid: Number,
-    name: string,
-}
-
-export async function searchEvent(name: string): Promise<EventSearchResult[]> {
-    return search(name, {
+export async function searchEvent(name: string): Promise<SearchResult[]> {
+    return (await search(name, {
         idName: "eventid",
         tableName: "Events",
+    })).map((event) => {
+        return {
+            id: event.eventid,
+            name: event.name,
+        };
     });
 }
