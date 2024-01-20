@@ -9,7 +9,7 @@ async function search(name: string, args: SearchArgs): Promise<any[]> {
     const db = await getDb();
 
     const query = {
-        text: `SELECT {args.idName}, similarity(name, $1) AS similarity FROM {args.tableName} WHERE name % $1 ORDER BY similarity DESC LIMIT 100`,
+        text: `SELECT ${args.idName}, name, word_similarity(name, $1) AS similarity FROM ${args.tableName} ORDER BY similarity DESC LIMIT 100`,
         values: [name],
     };
     return (await db.query(query)).rows;
