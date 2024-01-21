@@ -1,4 +1,10 @@
 <script lang="ts">
+
+    function getReadableDate(isoString: string) {
+        let date = new Date(isoString);
+        return date.toDateString() + " " + date.toLocaleTimeString("en-US");
+    }
+
     async function getEvents() {
         const response = await fetch('/api/get/event', {
             method: 'POST',
@@ -49,8 +55,8 @@
             <img src="{imageUrl}" alt="{name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
             <div>
               <h2 class="text-2xl font-bold">{name}</h2>
-              <p class="text-lg">Start Date: {startDate}</p>
-              <p class="text-lg">End Date: {endDate}</p>
+              <p class="text-lg">Start Date: {getReadableDate(startDate)}</p>
+              <p class="text-lg">End Date: {getReadableDate(endDate)}</p>
               <a href="../events/{eventId}" class="text-blue-500 underline">Event Page</a>
             </div>
           </div>
@@ -62,6 +68,11 @@
 
 <style>
 
+  .event-picture {
+      width: 7rem;
+      height: 7rem;
+  }
+  
   .event-container {
     display: grid;
     margin-bottom: 1rem;
