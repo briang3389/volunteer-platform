@@ -129,7 +129,7 @@
       <div class="flex items-center flex-shrink-0">
         {#if isLoggedIn}
           <span class="text-gray-800 text-sm font-semibold mr-4">Welcome back, {theName}!</span>
-          <button class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium" on:click={() => goto(userProfileUrl)}>
+          <button class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium" on:click={() => window.location = userProfileUrl}>
             My Profile
           </button>
           <button class="text-red-600 hover:text-red-800 px-3 py-2 rounded-md text-sm font-medium" on:click={handleLogout}>
