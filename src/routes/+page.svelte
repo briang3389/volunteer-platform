@@ -27,6 +27,9 @@
         <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded" on:click={() => goto("/create-event")}>
           Set up an Event in Your Area
         </button>
+        <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold ml-2 py-2 px-6 rounded" on:click={() => goto("/verifyhours")}>
+          Verify Hours
+        </button>
       {:else}
         <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded" on:click={navigateToSearch}>
           Find out What's Going in Your Area
