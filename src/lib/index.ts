@@ -2,7 +2,6 @@ import { PG_USER, PG_DB, PG_HOST, PG_PASSWORD, PG_PORT, JWT_SECRET } from '$env/
 import pg from "pg";
 import { error, type Cookies } from '@sveltejs/kit';
 import * as argon2 from "argon2";
-import { randomBytes } from 'crypto';
 import jwt from "jsonwebtoken";
 
 export const TOKEN_COOKIE_NAME = "token";

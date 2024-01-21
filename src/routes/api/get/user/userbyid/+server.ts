@@ -5,17 +5,17 @@ import { getDb } from '$lib/index'
 import pg from 'pg';
 import { getLoggedInId } from '$lib/index';
 
-export const POST = (async ({ request } ) => {
+export const POST = (async ({ request, cookies } ) => {
 	const pool: pg.Pool= await getDb();
-	let { username }  = await request.json();
+	let userid = getLoggedInId(cookies);
 	const query = {
-		name: 'get-user',
-		text: 'SELECT userid, email, icon_url, name FROM Users WHERE username = $1',
-		values: [username],
+		name: 'get-user-by-id',
+		text: 'SELECT username, email, icon_url, name FROM Users WHERE userid = $1;',
+		values: [userid],
 	}
 
 	try {
-		const res =  (await pool.query(query)).rows;
+		const res = await (await pool.query(query)).rows;
 		return new Response(JSON.stringify({ success: true, data: res}));
 	}
 	catch (e) {

@@ -13,7 +13,7 @@
 
   function handleSearchSubmit() {
     const encodedQuery = encodeURIComponent(searchQuery);
-    goto(`/search/${encodedQuery}`);
+    goto(`/search/keyword/${encodedQuery}`);
   }
 </script>
 
