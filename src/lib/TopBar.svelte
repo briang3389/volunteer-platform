@@ -2,11 +2,13 @@
   import { goto } from '$app/navigation';
   //import { userSession } from '$lib/sessionStore';
   import { onMount } from 'svelte';
+  import { getLoginData } from "$lib/client_get_loggin_data";
 
 
   let isLoggedIn = false;
   let userProfileUrl = ''; // Variable to store the user profile URL
   export let logoUrl = '/logo.png';
+  export let token;
   let searchQuery = ''; // Variable to hold the search query
   let theName = 'Dude';
 
@@ -34,37 +36,42 @@
   }
 
   async function fetchUserProfile() {
-    try {
-      const response = await fetch('/api/get/user/userbyid', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-      });
-      const result = await response.json();
-      userProfileUrl = `/volunteers/${result.data[0].username}`;
-      theName = result.data[0].name;
-      //console.log(result);
-      //console.log(userProfileUrl);
-      return;
-    } catch (error) {
-      //console.error('Failed to fetch user profile. trying orgs:', error);
-    }
-    try {
-      const response = await fetch('/api/get/org/orgbyid', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-      });
-      const result = await response.json();
-      userProfileUrl = `/orgs/${result.data[0].name}`;
-      theName = result.data[0].name;
-      //console.log(result);
-      //console.log(userProfileUrl);
-      return;
-    } catch (error) {
-      console.error('Failed to fetch user/org profile:', error);
+    const loginData = getLoginData(token);
+
+    if (loginData?.type === "user") {
+      try {
+        const response = await fetch('/api/get/user/userbyid', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+        });
+        const result = await response.json();
+        userProfileUrl = `/volunteers/${result.data[0].username}`;
+        theName = result.data[0].name;
+        //console.log(result);
+        //console.log(userProfileUrl);
+        return;
+      } catch (error) {
+        //console.error('Failed to fetch user profile. trying orgs:', error);
+      }
+    } else if (loginData?.type === "org") {
+      try {
+        const response = await fetch('/api/get/org/orgbyid', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+        });
+        const result = await response.json();
+        userProfileUrl = `/orgs/${result.data[0].name}`;
+        theName = result.data[0].name;
+        //console.log(result);
+        //console.log(userProfileUrl);
+        return;
+      } catch (error) {
+        console.error('Failed to fetch user/org profile:', error);
+      }
     }
   }
 

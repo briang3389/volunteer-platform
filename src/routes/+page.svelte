@@ -18,7 +18,7 @@
 </script>
 
 <div class="min-h-screen bg-gray-100 flex flex-col">
-  <TopBar />
+  <TopBar token={data.token} />
   <div class="flex-grow flex items-center justify-center p-4">
     <div class="text-center">
       <h2 class="text-4xl font-bold text-gray-900 mb-4">Helping Communities, One Hour at a Time</h2>
