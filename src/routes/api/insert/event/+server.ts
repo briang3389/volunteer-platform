@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
-import { getDb } from '$lib/index'
+import { apiError, apiOkData, getDb } from '$lib/index'
 import pg from 'pg';
 import { getLoggedInOrgid } from '$lib/index';
 
@@ -14,14 +14,18 @@ export const POST = (async ({ request, cookies } ) => {
 	}
 	const query = {
 		name: 'insert-event',
-		text: 'INSERT INTO Events (name, description, startdate, enddate, location, orgid, icon_url) VALUES ($1, $2, $3, $4, $5, $6, $7);',
+		text: 'INSERT INTO Events (name, description, startdate, enddate, location, orgid, icon_url) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING eventid;',
 		values: [name, description, startdate, enddate, location, orgid, icon_url],
 	}
 
 	
 	try {
 		const res = (await pool.query(query));
-		return new Response(JSON.stringify({ success: true}));
+		if (res.rowCount == 1) {
+			return apiOkData({ id: res.rows[0].eventid });
+		} else {
+			return apiError();
+		}
 	}
 	catch (e) {
 		return new Response(JSON.stringify({ success: false }))

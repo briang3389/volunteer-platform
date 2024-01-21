@@ -4,6 +4,11 @@
 
     export let userid: number;
 
+    function getReadableDate(isoString: string) {
+        let date = new Date(isoString);
+        return date.toDateString() + " " + date.toLocaleTimeString("en-US");
+    }
+
     async function getEvents() {
         const response = await fetch('/api/get/user/eventlog/byid', {
             method: 'POST',
@@ -63,7 +68,8 @@
                         <div>
                             <h2 class="text-2xl font-bold">{name}</h2>
                             <p class="text-lg">{description}</p>
-                            <p class="text-lg">Dates: {startdate} - {enddate}</p>
+                            <p class="text-lg">Start Date: {getReadableDate(startdate)}</p>
+                            <p class="text-lg">End Date: {getReadableDate(enddate)}</p>
                             <p class="text-lg">{location}</p>
                             <a href="../events/{eventid}" class="text-blue-500 underline">Event Page</a>
                         </div>
@@ -82,6 +88,10 @@
 
 
 <style>
+.event-picture {
+    width: 7rem;
+    height: 7rem;
+}
 
 .event-container {
     display: grid;
@@ -100,7 +110,7 @@
   }
 
   .totals {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
   }
 

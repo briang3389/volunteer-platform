@@ -1,5 +1,9 @@
 <script lang="ts">
 
+    function getReadableDate(isoString: string) {
+        let date = new Date(isoString);
+        return date.toDateString() + " " + date.toLocaleTimeString("en-US");
+    }
     export let orgid: number;
 
     async function getEvents() {
@@ -60,6 +64,11 @@
 
 <style>
 
+  .event-picture {
+      width: 7rem;
+      height: 7rem;
+  }
+  
   .event-container {
     display: grid;
     margin-bottom: 1rem;

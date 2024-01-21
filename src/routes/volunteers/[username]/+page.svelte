@@ -27,7 +27,6 @@
 <TopBar/>
 
 <div class="container">
-    <div class="profile-container">
         <!-- svelte-ignore a11y-img-redundant-alt -->
         {#await getInfo()}
           <p>...waiting</p>
@@ -35,14 +34,16 @@
         {#if success}
             {#if info.data.length !== 0}
                 <div class="info-container">
-                <img src={info.data[0].icon_url} alt="" class="profile-picture">
-                <p class="profile-name">{data.username}</p>  
-                <VolunteerEventList userid={info.data[0].userid}/>
+                  <div class="profile-container">
+                    <img src={info.data[0].icon_url} alt="" class="profile-picture">
+                    <p class="profile-name">{data.username}</p>  
+                  </div>
+                  <VolunteerEventList userid={info.data[0].userid}/>
 
-                <div class="contact-container">
-                    <p class="contact-header">Contact Information</p>
-                    <p class="profile-email-header">Email: <span class="profile-email">{info.data[0].email}</span></p>
-                </div>
+                  <div class="contact-container">
+                      <p class="contact-header">Contact Information</p>
+                      <p class="profile-email-header">Email: <span class="profile-email">{info.data[0].email}</span></p>
+                  </div>
                 </div>
             {:else}
             <p>Failed to fetch user information</p>
@@ -53,7 +54,6 @@
         {:catch error}
         <p style="color: red">{error.message}</p>
         {/await}
-    </div>
 </div>
 
 <style>

@@ -1,5 +1,6 @@
 <script>
 	import TopBar from "$lib/TopBar.svelte";
+  import { goto } from '$app/navigation';
 
     let eventName = '';
     let startDate = '';
@@ -7,10 +8,34 @@
     let endDate = '';
     let description = '';
     let eventIconUrl = '';
+
+    let error = false;
   
-    function handleSubmit() {
+    async function handleSubmit() {
       // You can handle the form submission logic here
       console.log('Form submitted:', { eventName, startDate, location, endDate, description, eventIconUrl });
+
+      const response = await fetch("/api/insert/event", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: eventName,
+          description: description,
+          startdate: startDate,
+          enddate: endDate,
+          location: location,
+          icon_url: eventIconUrl,
+        }),
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        goto(`/events/${result.data.id}`);
+      } else {
+        error = true;
+      }
     }
   </script>
 
@@ -40,6 +65,12 @@
       <br>
       <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-700" type="submit">Create Event</button>
     </form>
+
+    {#if error}
+      <div class="w-full py-4 flex place-content-center">
+        <p class="text-red-600">Could not create event</p>
+      </div>
+    {/if}
   </div>
 
   <style>
