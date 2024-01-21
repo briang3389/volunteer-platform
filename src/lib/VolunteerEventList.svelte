@@ -52,7 +52,7 @@
 					headers: {
 						'content-type': 'application/json'
 					},
-					body: JSON.stringify({ eventid: data.data[0].eventid })
+					body: JSON.stringify({ eventid: data.data[i].eventid })
 				});
 				events[i] = await eventdata.json();
 			}
