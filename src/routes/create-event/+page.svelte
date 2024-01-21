@@ -15,7 +15,6 @@
   
     async function handleSubmit() {
       // You can handle the form submission logic here
-      console.log('Form submitted:', { eventName, startDate, location, endDate, description, eventIconUrl });
 
       const response = await fetch("/api/insert/event", {
         method: "POST",
