@@ -8,6 +8,7 @@
   let username = ''; // Variable to store the username
   let email = ''; // Variable to store the email
   let password = ''; // Variable to store the password
+  let description = '';
   let error = false;
 
   let profilePicUrl = '/default_profile_pic.jpg'; // Variable to store the profile picture URL
@@ -28,6 +29,7 @@
         success = await createOrg({
           name: username,
           password: password,
+          description: description,
           profilePicUrl
         });
       }
@@ -48,10 +50,17 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit} class="max-w-md mx-auto p-4">
+  {#if accountType === "volunteer"}
   <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="text" bind:value={name} placeholder="Full Name" />
+  {/if}
   <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="text" bind:value={username} placeholder="Username" />
+  {#if accountType === "volunteer"}
   <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="email" bind:value={email} placeholder="Email" />
+  {/if}
   <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="password" bind:value={password} placeholder="Password" />
+  {#if accountType === "organization"}
+  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="text" bind:value={description} placeholder="Description" />
+  {/if}
   <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline" type="text" bind:value={profilePicUrl} placeholder="/default_profile_pic.jpg" />
 
 
