@@ -30,7 +30,7 @@
     function getUrlRedirect(result) {
         let url = "http://localhost:5173/";
         if (searchType === "user") {
-            url += `volunteers/${result.name}`;
+            url += `volunteers/${result.username}`;
 
         } else if (searchType === "org") {
             url += `orgs/${result.name}`;
