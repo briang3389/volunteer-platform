@@ -42,8 +42,8 @@
 				<div>
 				<h2 class="text-2xl font-bold">{name}</h2>
         {#if name !== 'No events'}
-				  <p class="text-lg">Start Date: {startdate}</p>
-				<p class="text-lg">End Date: {enddate}</p>
+				  <p class="text-lg">Start Date: {getReadableDate(startdate)}</p>
+				<p class="text-lg">End Date: {getReadableDate(enddate)}</p>
 				<a href="../events/{eventid}" class="text-blue-500 underline">Event Page</a>
 				{/if}
       </div>
