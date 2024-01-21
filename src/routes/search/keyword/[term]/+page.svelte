@@ -1,4 +1,7 @@
 <script>
+    import TopBar from "$lib/TopBar.svelte";
+    import { userSession } from '$lib/sessionStore';
+    import { onDestroy } from 'svelte';
     export let data;
 
     let searchTerm = data.initialSearchTerm;
@@ -23,25 +26,37 @@
             searchResults = results.data;
         }
     }
+
+    let username = '';
+    const unsubscribe = userSession.subscribe($userSession => {
+        username = $userSession ? $userSession.username : '';
+    });
+
+    onDestroy(() => {
+        unsubscribe();
+    });
 </script>
 
-<form on:submit|preventDefault={getSearchResults}>
-    <label for="search">Search</label>
-    <input id="search" type="text" bind:value={searchTerm} placeholde="Search"/>
-    <label for="user">Users</label>
-    <input type="radio" name="searchType" id="user" value="user" bind:group={searchType}/>
-    <label for="org">Organizations</label>
-    <input type="radio" name="searchType" id="org" value="org" bind:group={searchType}/>
-    <label for="event">Events</label>
-    <input type="radio" name="searchType" id="event" value="event" bind:group={searchType} checked/>
-    <button type="submit">Submit</button>
-</form>
-<table>
-    {#each searchResults as result (result.id)}
-        <tr>
-            <td>
-                {result.name}
-            </td>
-        </tr>
-    {/each}
-</table>
+<div class="min-h-screen bg-gray-100 flex flex-col">
+    <TopBar username = {username} />
+    <form on:submit|preventDefault={getSearchResults}>
+        <label for="search">Search</label>
+        <input id="search" type="text" bind:value={searchTerm} placeholde="Search"/>
+        <label for="user">Users</label>
+        <input type="radio" name="searchType" id="user" value="user" bind:group={searchType}/>
+        <label for="org">Organizations</label>
+        <input type="radio" name="searchType" id="org" value="org" bind:group={searchType}/>
+        <label for="event">Events</label>
+        <input type="radio" name="searchType" id="event" value="event" bind:group={searchType} checked/>
+        <button type="submit">Submit</button>
+    </form>
+    <table>
+        {#each searchResults as result (result.id)}
+            <tr>
+                <td>
+                    {result.name}
+                </td>
+            </tr>
+        {/each}
+    </table>
+</div>
