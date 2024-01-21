@@ -75,6 +75,11 @@ export function getLoggedInOrgid(cookies: Cookies): Number | null {
     }
 }
 
+export function checkCookieExists(cookies: Cookies): boolean {
+    const cookie = cookies.get(TOKEN_COOKIE_NAME);
+    return cookie !== undefined;
+}
+
 export function setLoggedInCokie(cookies: Cookies, userid: Number, userType: AccountType) {
     let data;
     if (userType === "user") {
