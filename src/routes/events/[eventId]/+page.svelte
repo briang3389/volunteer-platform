@@ -3,12 +3,13 @@
 	import { generateQRCode } from "$lib/qr_gen";
   import { getLoginData } from "$lib/client_get_loggin_data";
   import type { Event } from "$lib/get_queries";
+  import { invalidateAll } from '$app/navigation';
 
   export let data: any;
+
   const event: Event | null = data.eventData;
   const loginData = getLoginData(data.token);
   const showQrCode = event != null && loginData?.type == "org" && loginData?.id === Number(event.orgid);
-
   function getReadableDate(isoString: string) {
         let date = new Date(isoString);
         return date.toDateString() + " " + date.toLocaleTimeString("en-US");
@@ -24,12 +25,14 @@
   </script>
 
 {#if event == null}
-<p>Event not found</p>
+<p>You will be redirected shortly </p>
+<script>
+    window.location = window.location;
+</script>
 {:else}
 <TopBar token={data.token}/>
-
 <div class="container mx-auto p-4">
-    <div class="name-container flex items-center">
+    <div class="name-container flex items-center" >
       <!-- Event Image and Name -->
       <div class="mr-4">
         <img class="image object-cover rounded-full" src={event.icon_url} alt={event.name + ' Image'}>
