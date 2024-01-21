@@ -26,16 +26,19 @@
             searchResults = results.data;
         }
     }
-    /*
-    let username = '';
-    const unsubscribe = userSession.subscribe($userSession => {
-        username = $userSession ? $userSession.username : '';
-    });
+    
+    function getUrlRedirect(result) {
+        let url = "http://localhost:5173/";
+        if (searchType === "user") {
+            url += `volunteers/${result.name}`;
 
-    onDestroy(() => {
-        unsubscribe();
-    });
-    */
+        } else if (searchType === "org") {
+            url += `orgs/${result.name}`;
+        } else {
+            url += `events/${result.id}`;
+        }
+        return url;
+    }
 </script>
 
 <div class="min-h-screen bg-gray-100 flex flex-col">
@@ -70,7 +73,7 @@
             {#each searchResults as result (result.id)}
                 <tr class="hover:bg-gray-100">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">{result.name}</p>
+                        <a class="text-gray-900 whitespace-no-wrap" href={getUrlRedirect(result)}>{result.name}</a>
                     </td>
                 </tr>
             {/each}
