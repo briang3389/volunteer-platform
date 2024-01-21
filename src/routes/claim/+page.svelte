@@ -6,13 +6,21 @@
   import { page } from '$app/stores';
   import type { PageData } from './$types';
   import {load_user} from '$lib/load_user';
+	import { getLoginData } from '$lib/client_get_loggin_data';
+
+  export let data;
+
+  const loginData = getLoginData(data.token);
 
   let username = '';
   let eventHours = '';
   const handleSubmit = async () => {
+    if (loginData == null || loginData.type != "user") {
+      return;
+    }
     const eventid = $page.url.searchParams.get('eventid');
     const orgid = $page.url.searchParams.get('orgid');
-    const userid = await load_user();
+    const userid = loginData.id;
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -39,10 +47,11 @@
   };
 </script>
 
-<TopBar username={username} />
+<TopBar />
 
 <div class="container mx-auto p-4">
   <div class="w-full max-w-xs mx-auto">
+    {#if loginData?.type === "user"}
     <h1 class="text-xl font-semibold mb-4">Claim hours below:</h1>
     <div></div>
     <form on:submit|preventDefault={handleSubmit}>
@@ -56,8 +65,12 @@
         Claim
       </button>
     </form>
+    {:else}
+    <h1 class="text-x1 font-semibold mb-4 text-red-600">Must log in as user to claim hours</h1>
+    {/if}
   </div>
 </div>
+
 
 <style>
   /* Add any additional styling here */
