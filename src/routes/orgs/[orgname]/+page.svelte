@@ -2,14 +2,18 @@
     import TopBar from '$lib/TopBar.svelte'
 	import OrgEventList from '$lib/OrgEventList.svelte';
     import KeywordSearchBar from '$lib/KeywordSearchBar.svelte';
+    import { page } from '$app/stores';
 
-    async function getHours() {
-        const response = await fetch('/api/get/user', {
+    export let data: any;
+
+    async function getOrgEvents() {
+        const response = await fetch('/api/get/org/events', {
             method: 'POST',
             credentials: 'include',
             headers: {
                 'content-type': 'application/json',
             },
+            body: JSON.stringify({name: data.orgname}),
         });
         if (response.ok) {
             const data = await response.json();
@@ -83,20 +87,10 @@
     padding-left: 1rem;
   }
 
-  .search-container {
-    float:right;
-    padding-right: 3rem;
-  }
-
   .description-container {
     font-size: 1.5rem;
     text-align: left;
     margin-bottom: 20px;
-  }
-
-  .totals {
-    font-size: 2rem;
-    font-weight: bold;
   }
 
   .contact-header {
