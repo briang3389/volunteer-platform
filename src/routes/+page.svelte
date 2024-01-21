@@ -4,13 +4,13 @@
   import { onDestroy } from 'svelte';
   import TopBar  from '$lib/TopBar.svelte';
 
-  let username = '';
-  const unsubscribe = userSession.subscribe($userSession => {
-    username = $userSession ? $userSession.username : '';
-  });
+  //let username = '';
+  //const unsubscribe = userSession.subscribe($userSession => {
+  //  username = $userSession ? $userSession.username : '';
+  //});
 
   onDestroy(() => {
-    unsubscribe();
+    //unsubscribe();
   });
 
   function navigateToSearch() {
@@ -19,7 +19,7 @@
 </script>
 
 <div class="min-h-screen bg-gray-100 flex flex-col">
-  <TopBar username = {username} />
+  <TopBar />
   <div class="flex-grow flex items-center justify-center p-4">
     <div class="text-center">
       <h2 class="text-4xl font-bold text-gray-900 mb-4">Helping Communities, One Hour at a Time</h2>
