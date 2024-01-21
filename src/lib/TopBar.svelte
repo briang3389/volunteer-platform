@@ -22,7 +22,7 @@
     } catch (error) {
       console.error('Failed to validate login:', error);
     }
-    goto('/');
+    window.location = "/";
   }
 
   function handleSearchSubmit() {

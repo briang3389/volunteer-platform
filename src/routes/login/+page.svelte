@@ -9,7 +9,7 @@
   const handleSubmit = async (event) => {
     try {
       if (await loginUser(username, password)) {
-        goto("/");
+        window.location = "/";
       } else {
         error = true;
       }
