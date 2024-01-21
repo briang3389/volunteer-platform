@@ -8,7 +8,6 @@ import { getLoggedInOrgid } from '$lib/index';
 export const POST = (async ({ request, cookies } ) => {
 	const pool: pg.Pool= await getDb();
 	let orgid = getLoggedInOrgid(cookies);
-  console.log("orgid is "+orgid);
 	const query = {
 		name: 'get-org-by-id',
 		text: 'SELECT orgid, name, icon_url, description FROM organizations WHERE orgid = $1;',

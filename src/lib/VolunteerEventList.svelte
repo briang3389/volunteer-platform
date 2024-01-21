@@ -16,7 +16,6 @@
         if (response.ok) {
             const data = await response.json();
             if (data.data.length === 0) {
-                console.log(data);
                 return { events: {data: [{name: 'No events', description: 'This user has not attended any events', startdate: '', enddate: '', location: '', icon_url: ''}]} };
             }
             let totalHours = 0;
