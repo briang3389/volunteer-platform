@@ -4,6 +4,11 @@
 
     export let userid: number;
 
+    function getReadableDate(isoString: string) {
+        let date = new Date(isoString);
+        return date.toDateString() + " " + date.toLocaleTimeString("en-US");
+    }
+
     async function getEvents() {
         const response = await fetch('/api/get/user/eventlog/byid', {
             method: 'POST',
@@ -35,7 +40,7 @@
             });
             const data2 = await eventdata.json();
 
-            return { events: data2, eventid: data.data[0].eventid, totalHours, totalEvents };
+            return { events: data2, totalHours, totalEvents };
         } else {
             throw new Error("Error fetching events");
         }
@@ -46,7 +51,7 @@
 <div class="events-container">
     <p>...waiting</p>
 </div>
-{:then   { events, eventid, totalHours, totalEvents }  }
+{:then   { events, totalHours, totalEvents }  }
 
   <div class="totals-container">
     <div class="totals">
@@ -55,7 +60,7 @@
     </div>
   </div>
         {#if events.data.length !== 0}
-            {#each events.data as { name, description, startdate, enddate, location, icon_url } }
+            {#each events.data as { name, description, startdate, enddate, location, icon_url, eventid } }
             <div class="event-container">
                 <img src={icon_url} alt="" class="event-icon">
                 <div class="event-block">
@@ -64,7 +69,8 @@
                         <div>
                             <h2 class="text-2xl font-bold">{name}</h2>
                             <p class="text-lg">{description}</p>
-                            <p class="text-lg">Dates: {startdate} - {enddate}</p>
+                            <p class="text-lg">Start Date: {getReadableDate(startdate)}</p>
+                            <p class="text-lg">End Date: {getReadableDate(enddate)}</p>
                             <p class="text-lg">{location}</p>
                             <a href="../events/{eventid}" class="text-blue-500 underline">Event Page</a>
                         </div>
@@ -83,6 +89,10 @@
 
 
 <style>
+.event-picture {
+    width: 7rem;
+    height: 7rem;
+}
 
 .event-container {
     display: grid;
@@ -101,7 +111,7 @@
   }
 
   .totals {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
   }
 

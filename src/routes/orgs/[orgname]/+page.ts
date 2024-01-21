@@ -1,6 +1,6 @@
 
 export async function load({ params }) {
     return {
-        username: params.orgname
+        orgname: params.orgname
     }
 }

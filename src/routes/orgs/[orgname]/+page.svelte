@@ -7,7 +7,7 @@
     export let data: any;
 
     async function getOrgEvents() {
-        const response = await fetch('/api/get/org/events', {
+        const response = await fetch('/api/get/org', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -17,17 +17,11 @@
         });
         if (response.ok) {
             const data = await response.json();
-            return data;
+            console.log(data)
+            return {success: true, info: data};
         } else {
-            console.log('Error fetching events');
+          return {success: false, info: []};
         }
-    }
-
-    const info = {
-        description: "We are a very good organization!",
-        imageUrl: "/default_profile_pic.jpg",
-        name: "Big Organization",
-        email: "me@me.com",
     }
 
 </script>
@@ -35,25 +29,40 @@
 <TopBar/>
 
 <div class="container">
-    <div class="profile-container">
-        <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img src={info.imageUrl} alt="Profile Picture" class="profile-picture">
-        <p class="profile-name">{info.name}</p>
-    </div>
-
-    <div class="info-container">
-
-        <div class="description-container">
-                <p>{info.description}</p>
-        </div>
-
-        <OrgEventList/>
-
-        <div class="contact-container">
-            <p class="contact-header">Contact Information</p>
-            <p class="profile-email-header">Email: <span class="profile-email">{info.email}</span></p>
-        </div>
-    </div>
+    {#await getOrgEvents()}
+          <p>...waiting</p>
+        {:then { success, info }}
+        {#if success}
+            {#if info.data.length !== 0}
+            
+            <div class="profile-container">
+              <!-- svelte-ignore a11y-img-redundant-alt -->
+              <img src={info.data[0].icon_url} alt="Profile Picture" class="profile-picture">
+              <p class="profile-name">{data.orgname}</p>
+          </div>
+      
+          <div class="info-container">
+      
+              <div class="description-container">
+                      <p>{info.data[0].description ? info.data[0].description : "No description found"}</p>
+              </div>
+      
+              <OrgEventList orgid={info.data[0].orgid}/>
+      
+              <!-- <div class="contact-container">
+                  <p class="contact-header">Contact Information</p>
+                  <p class="profile-email-header">Email: <span class="profile-email">{info.email}</span></p>
+              </div> -->
+          </div>
+            {:else}
+            <p>Failed to fetch user information</p>
+            {/if}
+        {:else}
+        <p>Failed to fetch user information</p>
+      {/if}
+        {:catch error}
+        <p style="color: red">{error.message}</p>
+        {/await}
 </div>
 
 <style>

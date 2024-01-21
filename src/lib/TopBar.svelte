@@ -27,6 +27,9 @@
 
   function handleSearchSubmit() {
     const encodedQuery = encodeURIComponent(searchQuery);
+    if (encodedQuery === ''){
+      return;
+    }
     goto(`/search/keyword/${encodedQuery}`);
   }
 
