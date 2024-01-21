@@ -9,7 +9,7 @@
     let location = '';
     let endDate = '';
     let description = '';
-    let eventIconUrl = '';
+    let eventIconUrl = 'https://static.wixstatic.com/media/6296ce_663f07a068f840109737ad0fbebccd73~mv2.jpg/v1/fill/w_640,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/6296ce_663f07a068f840109737ad0fbebccd73~mv2.jpg';
 
     let error = false;
   
