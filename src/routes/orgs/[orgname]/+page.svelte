@@ -25,7 +25,7 @@
 
 </script>
 
-<TopBar/>
+<TopBar token={data.token}/>
 
 <div class="container">
     {#await getOrgEvents()}

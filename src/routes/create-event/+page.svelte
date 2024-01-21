@@ -2,6 +2,8 @@
 	import TopBar from "$lib/TopBar.svelte";
   import { goto } from '$app/navigation';
 
+  export let data;
+
     let eventName = '';
     let startDate = '';
     let location = '';
@@ -39,7 +41,7 @@
     }
   </script>
 
-<TopBar/>
+<TopBar token={data.token}/>
 
 <div class="container mx-auto p-4">
     <h1 class="text-3xl font-bold mb-4 title">Create Event</h1>

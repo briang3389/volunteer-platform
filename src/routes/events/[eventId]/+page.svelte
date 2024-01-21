@@ -26,7 +26,7 @@
 {#if event == null}
 <p>Event not found</p>
 {:else}
-<TopBar/>
+<TopBar token={data.token}/>
 
 <div class="container mx-auto p-4">
     <div class="name-container flex items-center">
