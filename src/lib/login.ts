@@ -20,6 +20,7 @@ export interface CreateUserOptions {
     email: string,
     username: string,
     password: string,
+    profilePicUrl: string
 }
 
 export async function createUser(options: CreateUserOptions): Promise<Boolean> {
@@ -38,6 +39,7 @@ export async function createUser(options: CreateUserOptions): Promise<Boolean> {
 export interface CreateOrgOptions {
     name: string,
     password: string,
+    profilePicUrl: string
 }
 
 export async function createOrg(options: CreateOrgOptions): Promise<Boolean> {

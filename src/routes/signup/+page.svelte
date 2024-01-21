@@ -22,11 +22,13 @@
           username: username,
           email: email,
           password: password,
+          profilePicUrl
         });
       } else {
         success = await createOrg({
           name: username,
           password: password,
+          profilePicUrl
         });
       }
 
