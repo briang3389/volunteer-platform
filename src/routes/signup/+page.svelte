@@ -35,7 +35,7 @@
       }
 
       if (success) {
-        window.locarion = "/";
+        window.location = "/";
       } else {
         error = true;
       }
@@ -77,7 +77,7 @@
   <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full mt-4" type="submit">Sign Up</button>
   {#if error}
     <div class="w-full py-4 flex place-content-center">
-      <p class="text-red-600">Incorrect Username or Password</p>
+      <p class="text-red-600">Username Taken</p>
     </div>
   {/if}
 </form>
