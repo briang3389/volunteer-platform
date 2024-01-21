@@ -40,6 +40,7 @@
 
                 })
         });
+        alert("Hours claimed successfully");
         return {
             status: await res.status,
             body: await res.json()

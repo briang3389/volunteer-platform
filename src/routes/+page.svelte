@@ -13,7 +13,7 @@
   //});
 
   function navigateToSearch() {
-    goto('/search'); // Replace '/search' with the actual path for location search
+    goto('/search/keyword/%20');
   }
 </script>
 
