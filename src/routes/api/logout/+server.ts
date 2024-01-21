@@ -1,7 +1,8 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import { getLoggedInId, checkCookieExists } from "$lib";
+import { getLoggedInId, deleteCookie } from "$lib";
 
 
 export const POST = (async ({ request, cookies }) => {
-    return new Response(JSON.stringify({success: checkCookieExists(cookies)}));
+    deleteCookie(cookies);
+    return new Response(JSON.stringify({success: true}));
 }) satisfies RequestHandler;

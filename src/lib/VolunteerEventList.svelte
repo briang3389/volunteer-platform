@@ -50,8 +50,8 @@
 
   <div class="totals-container">
     <div class="totals">
-        <p>Total Hours Volunteered: {totalHours}</p>
-        <p>Total Events Attended: {totalEvents}</p>
+        <p>Total Hours Volunteered: {totalHours ? totalHours: 0}</p>
+        <p>Total Events Attended: {totalEvents ? totalEvents : 0}</p>
     </div>
   </div>
         {#if events.data.length !== 0}
@@ -92,5 +92,15 @@
     border-radius: 10%;
     padding: 10px;
     text-align: center;
+  }
+
+  .totals {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .totals-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 </style>
