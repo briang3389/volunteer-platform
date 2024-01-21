@@ -5,8 +5,10 @@
 
 
   let isLoggedIn = false;
+  let userProfileUrl = ''; // Variable to store the user profile URL
   export let logoUrl = '/logo.png';
   let searchQuery = ''; // Variable to hold the search query
+  let theName = 'Dude';
 
   async function handleLogout() {
     try {
@@ -25,9 +27,46 @@
 
   function handleSearchSubmit() {
     const encodedQuery = encodeURIComponent(searchQuery);
+    if (encodedQuery === ''){
+      return;
+    }
     goto(`/search/keyword/${encodedQuery}`);
   }
 
+  async function fetchUserProfile() {
+    try {
+      const response = await fetch('/api/get/user/userbyid', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      userProfileUrl = `/volunteers/${result.data[0].username}`;
+      theName = result.data[0].name;
+      //console.log(result);
+      //console.log(userProfileUrl);
+      return;
+    } catch (error) {
+      //console.error('Failed to fetch user profile. trying orgs:', error);
+    }
+    try {
+      const response = await fetch('/api/get/org/orgbyid', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
+      const result = await response.json();
+      userProfileUrl = `/orgs/${result.data[0].name}`;
+      theName = result.data[0].name;
+      //console.log(result);
+      //console.log(userProfileUrl);
+      return;
+    } catch (error) {
+      console.error('Failed to fetch user/org profile:', error);
+    }
+  }
 
   onMount(async () => {
     try {
@@ -39,10 +78,15 @@
       });
       const result = await response.json();
       isLoggedIn = result.success;
+      if (isLoggedIn) {
+        await fetchUserProfile();
+      }
     } catch (error) {
       console.error('Failed to validate login:', error);
     }
   });
+
+
 </script>
 
 <nav class="bg-white shadow-md">
@@ -77,7 +121,10 @@
       <!-- User Session Area -->
       <div class="flex items-center flex-shrink-0">
         {#if isLoggedIn}
-          <span class="text-gray-800 text-sm font-semibold mr-4">Welcome back, {'Dude'}!</span>
+          <span class="text-gray-800 text-sm font-semibold mr-4">Welcome back, {theName}!</span>
+          <button class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium" on:click={() => goto(userProfileUrl)}>
+            My Profile
+          </button>
           <button class="text-red-600 hover:text-red-800 px-3 py-2 rounded-md text-sm font-medium" on:click={handleLogout}>
             Log Out
           </button>

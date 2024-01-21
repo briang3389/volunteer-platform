@@ -3,17 +3,18 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 import { getDb } from '$lib/index'
 import pg from 'pg';
+import { getLoggedInOrgid } from '$lib/index';
 
-export const POST = (async ({ request } ) => {
+export const POST = (async ({ request, cookies } ) => {
 	const pool: pg.Pool= await getDb();
-	let { eventid } = await request.json();
+	let orgid = getLoggedInOrgid(cookies);
+  console.log("orgid is "+orgid);
 	const query = {
-		name: 'get-event',
-		text: 'SELECT eventid, name, description, startdate, enddate, location, orgid, icon_url FROM Events WHERE eventid = $1;',
-		values: [eventid],
+		name: 'get-org-by-id',
+		text: 'SELECT orgid, name, icon_url, description FROM organizations WHERE orgid = $1;',
+		values: [orgid],
 	}
 
-	
 	try {
 		const res = await (await pool.query(query)).rows;
 		return new Response(JSON.stringify({ success: true, data: res}));

@@ -40,7 +40,7 @@
             });
             const data2 = await eventdata.json();
 
-            return { events: data2, eventid: data.data[0].eventid, totalHours, totalEvents };
+            return { events: data2, totalHours, totalEvents };
         } else {
             throw new Error("Error fetching events");
         }
@@ -51,7 +51,7 @@
 <div class="events-container">
     <p>...waiting</p>
 </div>
-{:then   { events, eventid, totalHours, totalEvents }  }
+{:then   { events, totalHours, totalEvents }  }
 
   <div class="totals-container">
     <div class="totals">
@@ -60,7 +60,7 @@
     </div>
   </div>
         {#if events.data.length !== 0}
-            {#each events.data as { name, description, startdate, enddate, location, icon_url } }
+            {#each events.data as { name, description, startdate, enddate, location, icon_url, eventid } }
             <div class="event-container">
                 <img src={icon_url} alt="" class="event-icon">
                 <div class="event-block">
