@@ -26,7 +26,7 @@
             searchResults = results.data;
         }
     }
-
+    /*
     let username = '';
     const unsubscribe = userSession.subscribe($userSession => {
         username = $userSession ? $userSession.username : '';
@@ -35,10 +35,11 @@
     onDestroy(() => {
         unsubscribe();
     });
+    */
 </script>
 
 <div class="min-h-screen bg-gray-100 flex flex-col">
-    <TopBar username={username} />
+    <TopBar />
     <div class="container mx-auto my-10 p-6 max-w-xl bg-white rounded shadow-md">
         <form on:submit|preventDefault={getSearchResults} class="space-y-4">
             <div>
