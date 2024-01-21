@@ -12,7 +12,7 @@
 	}
 </script>
 
-<div class="min-h-screen bg-gray-100 flex flex-col">
+<div class="landing min-h-screen bg-gray-100 flex flex-col">
 	<TopBar token={data.token} />
 	<div class="flex-grow flex items-center justify-center p-4">
 		<div class="text-center">
@@ -48,4 +48,8 @@
 </div>
 
 <style>
+	.landing {
+		background-color: #74EBD5;
+		background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
+	}
 </style>

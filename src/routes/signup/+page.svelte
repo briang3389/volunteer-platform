@@ -13,7 +13,7 @@
 	let error = false;
 	export let data;
 
-	let profilePicUrl = '/default_profile_pic.jpg';
+	let profilePicUrl = 'https://i0.wp.com/communitytechnetwork.org/wp-content/uploads/Volunteer_kate1.png';
 
 	const handleSubmit = async () => {
 		try {
@@ -91,7 +91,7 @@
 		class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
 		type="text"
 		bind:value={profilePicUrl}
-		placeholder="/default_profile_pic.jpg"
+		placeholder="https://i0.wp.com/communitytechnetwork.org/wp-content/uploads/Volunteer_kate1.png"
 	/>
 
 	<div class="flex items-center mt-4">
