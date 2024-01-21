@@ -39,7 +39,7 @@
   };
 </script>
 
-<TopBar username={username} />
+<TopBar />
 
 <div class="container mx-auto p-4">
   <div class="w-full max-w-xs mx-auto">
