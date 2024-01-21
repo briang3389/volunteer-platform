@@ -60,7 +60,7 @@
   </div>
         {#if events.data.length !== 0}
             {#each events.data as { name, description, startdate, enddate, location, icon_url, eventid } }
-            <div class="event-container">
+            <div class="event-container shadow-lg">
                 <img src={icon_url} alt="" class="event-icon">
                 <div class="event-block">
                     <div class="flex items-center"> <!-- Added flex container for alignment -->
@@ -97,7 +97,7 @@
     display: grid;
     margin-bottom: 1rem;
     width: 50rem;
-    border: 0.4rem solid #999;
+    background-color: #eff;
     border-radius: 1rem;
   }
 

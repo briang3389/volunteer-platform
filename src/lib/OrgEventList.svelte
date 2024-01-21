@@ -42,7 +42,7 @@
 	<p>...waiting</p>
 	{:then { events }}
 		{#each events.data as { name, startDate, endDate, eventId, imageUrl }}
-		<div class="event-container">
+		<div class="event-container shadow-lg">
 			<div class="event-block">
 			<div class="flex items-center"> <!-- Added flex container for alignment -->
 				<img src="{imageUrl}" alt="{name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
@@ -73,7 +73,7 @@
     display: grid;
     margin-bottom: 1rem;
     width: 50rem;
-    border: 0.4rem solid #999;
+    background-color: #eff;
     border-radius: 1rem;
   }
 
