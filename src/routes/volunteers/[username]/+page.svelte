@@ -4,7 +4,7 @@
     import KeywordSearchBar from '$lib/KeywordSearchBar.svelte';
     import { page } from '$app/stores';
 
-    export let data;
+    export let data: any;
 
     async function getInfo() {
         const response = await fetch('/api/get/user', {
@@ -24,7 +24,7 @@
     
 </script>
 
-<TopBar/>
+<TopBar token={data.token}/>
 
 <div class="container">
         <!-- svelte-ignore a11y-img-redundant-alt -->

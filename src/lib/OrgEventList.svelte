@@ -7,19 +7,8 @@
     export let orgid: number;
 
     async function getEvents() {
-        const response = await fetch('/api/get/org/eventlog', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify({ orgid: orgid })
-        });
-        if (response.ok) {
-            const data = await response.json();
-            if (data.data.length === 0) {
-                return { events: {data: [{name: 'No events', description: 'This org has not created any events', startdate: '', enddate: '', location: '', icon_url: '', eventid: undefined}]}};
-            }
+            
+		try {
             const eventdata = await fetch('/api/get/event/eventbyorgid', {
                 method: 'POST',
                 credentials: 'include',
@@ -28,10 +17,12 @@
                 },
                 body: JSON.stringify({ orgid: orgid })
             });
-            const data2 = await eventdata.json();
-
-            return { events: data2 };
-        } else {
+            const data = await eventdata.json();
+			if (data.data.length === 0) {
+                return { events: {data: [{name: 'No events', description: 'This org has not created any events', startdate: '', enddate: '', location: '', icon_url: '', eventid: undefined}]}};
+            }
+            return { events: data };
+        } catch (error) {
             throw new Error("Error fetching events");
         }
     }
@@ -41,19 +32,19 @@
 	{#await getEvents()}
 	<p>...waiting</p>
 	{:then { events }}
-		{#each events.data as { name, startDate, endDate, eventId, imageUrl }}
+		{#each events.data as { name, startdate, enddate, eventid, icon_url }}
 		<div class="event-container shadow-lg">
 			<div class="event-block">
 			<div class="flex items-center"> <!-- Added flex container for alignment -->
         {#if name !== 'No events'}
-				  <img src="{imageUrl}" alt="{name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
+				  <img src="{icon_url}" alt="{name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
         {/if}
 				<div>
 				<h2 class="text-2xl font-bold">{name}</h2>
         {#if name !== 'No events'}
-				  <p class="text-lg">Start Date: {startDate}</p>
-				<p class="text-lg">End Date: {endDate}</p>
-				<a href="../events/{eventId}" class="text-blue-500 underline">Event Page</a>
+				  <p class="text-lg">Start Date: {startdate}</p>
+				<p class="text-lg">End Date: {enddate}</p>
+				<a href="../events/{eventid}" class="text-blue-500 underline">Event Page</a>
 				{/if}
       </div>
 			</div>

@@ -40,6 +40,7 @@
 
                 })
         });
+        alert("Hours claimed successfully");
         return {
             status: await res.status,
             body: await res.json()
@@ -47,7 +48,7 @@
   };
 </script>
 
-<TopBar />
+<TopBar token={data.token} />
 
 <div class="container mx-auto p-4">
   <div class="w-full max-w-xs mx-auto">
