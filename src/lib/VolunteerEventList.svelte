@@ -66,13 +66,17 @@
                 <img src={data.data[0].icon_url} alt="" class="event-icon">
                 <div class="event-block">
                     <div class="flex items-center"> <!-- Added flex container for alignment -->
+                    {#if data.data[0].name !== 'No events'}
                     <img src="{data.data[0].icon_url}" alt="{data.data[0].name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
+                    {/if}    
                         <div>
                             <h2 class="text-2xl font-bold">{data.data[0].name}</h2>
+                            {#if data.data[0].name !== 'No events'}
                             <p class="text-lg">Start Date: {getReadableDate(data.data[0].startdate)}</p>
                             <p class="text-lg">End Date: {getReadableDate(data.data[0].enddate)}</p>
                             <p class="text-lg">{data.data[0].location}</p>
                             <a href="../events/{data.data[0].eventid}" class="text-blue-500 underline">Event Page</a>
+                            {/if}
                         </div>
                     </div>
                 </div>

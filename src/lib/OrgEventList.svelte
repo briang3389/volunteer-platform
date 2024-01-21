@@ -45,13 +45,17 @@
 		<div class="event-container shadow-lg">
 			<div class="event-block">
 			<div class="flex items-center"> <!-- Added flex container for alignment -->
-				<img src="{imageUrl}" alt="{name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
+        {#if name !== 'No events'}
+				  <img src="{imageUrl}" alt="{name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
+        {/if}
 				<div>
 				<h2 class="text-2xl font-bold">{name}</h2>
-				<p class="text-lg">Start Date: {startDate}</p>
+        {#if name !== 'No events'}
+				  <p class="text-lg">Start Date: {startDate}</p>
 				<p class="text-lg">End Date: {endDate}</p>
 				<a href="../events/{eventId}" class="text-blue-500 underline">Event Page</a>
-				</div>
+				{/if}
+      </div>
 			</div>
 			</div>
 		</div>

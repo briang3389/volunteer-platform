@@ -36,7 +36,7 @@
                 <div class="info-container">
                   <div class="profile-container">
                     <img src={info.data[0].icon_url} alt="" class="profile-picture">
-                    <p class="profile-name">{data.username}</p>  
+                    <p class="profile-name">{info.data[0].name}</p>  
                   </div>
                   <VolunteerEventList userid={info.data[0].userid}/>
 
