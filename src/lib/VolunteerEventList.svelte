@@ -69,7 +69,6 @@
                     <img src="{data.data[0].icon_url}" alt="{data.data[0].name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
                         <div>
                             <h2 class="text-2xl font-bold">{data.data[0].name}</h2>
-                            <p class="text-lg">{data.data[0].description}</p>
                             <p class="text-lg">Start Date: {getReadableDate(data.data[0].startdate)}</p>
                             <p class="text-lg">End Date: {getReadableDate(data.data[0].enddate)}</p>
                             <p class="text-lg">{data.data[0].location}</p>
