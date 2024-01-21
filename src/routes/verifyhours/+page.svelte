@@ -4,7 +4,7 @@ import { onMount } from 'svelte';
 
   //let volunteers = [{name: "John Doe", claimedHours: 10}, {name: "Jane Doe", claimedHours: 5}];
   let volunteers = [];
-
+  export let data;
   async function fetchVolunteers() {
     try {
       // Make a POST request to the backend endpoint
@@ -76,7 +76,7 @@ import { onMount } from 'svelte';
   }
 </script>
 
-<TopBar />
+<TopBar token={data.token} />
 
 <div class="container mx-auto p-4">
   <h1 class="text-3xl font-bold mb-4">Verify Volunteer Hours</h1>

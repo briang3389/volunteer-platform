@@ -35,7 +35,7 @@
       }
 
       if (success) {
-        goto("/");
+        window.locarion = "/";
       } else {
         error = true;
       }

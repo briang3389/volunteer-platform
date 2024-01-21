@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import { error } from "@sveltejs/kit";
+	import type { list } from "postcss";
+	import type { List } from "postcss/lib/list";
 
     export let userid: number;
 
@@ -21,25 +23,25 @@
         if (response.ok) {
             const data = await response.json();
             if (data.data.length === 0) {
-                return { events: {data: [{name: 'No events', description: 'This user has not attended any events', startdate: '', enddate: '', location: '', icon_url: ''}]} };
+                return { events: [{data: [{name: 'No events', description: 'This user has not attended any events', startdate: '', enddate: '', location: '', icon_url: ''}]}] };
             }
             let totalHours = 0;
             let totalEvents = 0;
+            let events = [];
             for (let i = 0; i < data.data.length; i++) {
                 totalHours += data.data[i].hours;
                 totalEvents++;
-            }
-            const eventdata = await fetch('/api/get/event/eventbyid', {
+                const eventdata = await fetch('/api/get/event/eventbyid', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'content-type': 'application/json',
                 },
                 body: JSON.stringify({ eventid: data.data[0].eventid })
-            });
-            const data2 = await eventdata.json();
-
-            return { events: data2, totalHours, totalEvents };
+                });
+                events[i] = (await eventdata.json());
+            }
+            return { events: events, totalHours, totalEvents };
         } else {
             throw new Error("Error fetching events");
         }
@@ -58,20 +60,19 @@
         <p>Total Events Attended: {totalEvents ? totalEvents : 0}</p>
     </div>
   </div>
-        {#if events.data.length !== 0}
-            {#each events.data as { name, description, startdate, enddate, location, icon_url, eventid } }
+        {#if events.length !== 0}
+            {#each events as data }
             <div class="event-container shadow-lg">
-                <img src={icon_url} alt="" class="event-icon">
+                <img src={data.data[0].icon_url} alt="" class="event-icon">
                 <div class="event-block">
                     <div class="flex items-center"> <!-- Added flex container for alignment -->
-                    <img src="{icon_url}" alt="{name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
+                    <img src="{data.data[0].icon_url}" alt="{data.data[0].name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
                         <div>
-                            <h2 class="text-2xl font-bold">{name}</h2>
-                            <p class="text-lg">{description}</p>
-                            <p class="text-lg">Start Date: {getReadableDate(startdate)}</p>
-                            <p class="text-lg">End Date: {getReadableDate(enddate)}</p>
-                            <p class="text-lg">{location}</p>
-                            <a href="../events/{eventid}" class="text-blue-500 underline">Event Page</a>
+                            <h2 class="text-2xl font-bold">{data.data[0].name}</h2>
+                            <p class="text-lg">Start Date: {getReadableDate(data.data[0].startdate)}</p>
+                            <p class="text-lg">End Date: {getReadableDate(data.data[0].enddate)}</p>
+                            <p class="text-lg">{data.data[0].location}</p>
+                            <a href="../events/{data.data[0].eventid}" class="text-blue-500 underline">Event Page</a>
                         </div>
                     </div>
                 </div>

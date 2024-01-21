@@ -48,7 +48,7 @@
   };
 </script>
 
-<TopBar />
+<TopBar token={data.token} />
 
 <div class="container mx-auto p-4">
   <div class="w-full max-w-xs mx-auto">
@@ -60,7 +60,7 @@
         <label for="hours" class="block text-gray-700 text-sm font-bold mb-2">
           Number of Hours:
         </label>
-        <input id="hours" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" type="number" bind:value={eventHours} placeholder="e.g., 5" />
+        <input id="hours" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" type="number" min="0" bind:value={eventHours} placeholder="e.g., 5" />
       </div>
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
         Claim

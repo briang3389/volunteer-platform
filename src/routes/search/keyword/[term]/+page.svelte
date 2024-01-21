@@ -30,7 +30,7 @@
     function getUrlRedirect(result) {
         let url = "http://localhost:5173/";
         if (searchType === "user") {
-            url += `volunteers/${result.name}`;
+            url += `volunteers/${result.username}`;
 
         } else if (searchType === "org") {
             url += `orgs/${result.name}`;
@@ -42,7 +42,7 @@
 </script>
 
 <div class="min-h-screen bg-gray-100 flex flex-col">
-    <TopBar />
+    <TopBar token={data.token} />
     <div class="container mx-auto my-10 p-6 max-w-xl bg-white rounded shadow-md">
         <form on:submit|preventDefault={getSearchResults} class="space-y-4">
             <div>
