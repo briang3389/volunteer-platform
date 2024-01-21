@@ -34,6 +34,7 @@
                 body: JSON.stringify({ eventid: data.data[0].eventid })
             });
             const data2 = await eventdata.json();
+
             return { events: data2, eventid: data.data[0].eventid, totalHours, totalEvents };
         } else {
             throw new Error("Error fetching events");
