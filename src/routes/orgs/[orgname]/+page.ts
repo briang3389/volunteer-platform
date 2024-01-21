@@ -1,6 +1,5 @@
-
 export async function load({ params }) {
-    return {
-        orgname: params.orgname
-    }
+	return {
+		orgname: params.orgname
+	};
 }

@@ -1,6 +1,5 @@
-
 export async function load({ params }) {
-    return {
-        username: params.username
-    }
+	return {
+		username: params.username
+	};
 }

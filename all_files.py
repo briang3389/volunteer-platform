@@ -13,6 +13,5 @@ def list_files_and_contents(start_path):
                 print(f"Error reading file {file_path}: {e}")
             print("\n--------------------------------\n")
 
-# Replace 'src' with your actual folder path
 start_path = 'src'
 list_files_and_contents(start_path)

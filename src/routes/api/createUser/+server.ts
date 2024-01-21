@@ -1,34 +1,46 @@
-import { apiError, apiOk, getDb, hashPassword, setLoggedInCokie } from "$lib";
-import type { CreateUserOptions } from "$lib/login";
-import type { RequestHandler } from "@sveltejs/kit";
+import { apiError, apiOk, getDb, hashPassword, setLoggedInCokie } from '$lib';
+import type { CreateUserOptions } from '$lib/login';
+import type { RequestHandler } from '@sveltejs/kit';
 
 export const POST = (async ({ request, cookies }) => {
-    const data: CreateUserOptions = await request.json();
+	const data: CreateUserOptions = await request.json();
 
-    if (data.name == null || data.email == null || data.username == null || data.password == null || data.profilePicUrl == null) {
-        return apiError();
-    }
+	if (
+		data.name == null ||
+		data.email == null ||
+		data.username == null ||
+		data.password == null ||
+		data.profilePicUrl == null
+	) {
+		return apiError();
+	}
 
-    const db = await getDb();
+	const db = await getDb();
 
-    const query = {
-        text: "INSERT INTO Users (username, name, email, password, icon_url) VALUES ($1, $2, $3, $4, $5) RETURNING Users.userid",
-        values: [data.username, data.name, data.email, await hashPassword(data.password), data.profilePicUrl],
-    };
+	const query = {
+		text: 'INSERT INTO Users (username, name, email, password, icon_url) VALUES ($1, $2, $3, $4, $5) RETURNING Users.userid',
+		values: [
+			data.username,
+			data.name,
+			data.email,
+			await hashPassword(data.password),
+			data.profilePicUrl
+		]
+	};
 
-    let result;
-    try {
-        result = await db.query(query);
-    } catch (e) {
-        return apiError();
-    }
+	let result;
+	try {
+		result = await db.query(query);
+	} catch (e) {
+		return apiError();
+	}
 
-    if (result.rowCount == 0) {
-        return apiError();
-    }
+	if (result.rowCount == 0) {
+		return apiError();
+	}
 
-    const userId = result.rows[0].userid;
-    setLoggedInCokie(cookies, userId, "user");
+	const userId = result.rows[0].userid;
+	setLoggedInCokie(cookies, userId, 'user');
 
-    return apiOk();
+	return apiOk();
 }) satisfies RequestHandler;
