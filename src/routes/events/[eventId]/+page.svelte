@@ -9,12 +9,17 @@
   const loginData = getLoginData(data.token);
   const showQrCode = event != null && loginData?.type == "org" && loginData?.id === Number(event.orgid);
 
-    async function getQrData(url: string) {
-        return generateQRCode(url, 500, 500);
-    }
-  
-    // Dummy QR code data, replace with actual data
-    let qrArg = `https://localhost:5173/claim/?eventid=${data?.eventid}&orgid=${event?.orgid}`;
+  function getReadableDate(isoString: string) {
+        let date = new Date(isoString);
+        return date.toDateString() + " " + date.toLocaleTimeString("en-US");
+  }
+
+  async function getQrData(url: string) {
+      return generateQRCode(url, 500, 500);
+  }
+
+  // Dummy QR code data, replace with actual data
+  let qrArg = `https://localhost:5173/claim/?eventid=${data?.eventid}&orgid=${event?.orgid}`;
 
   </script>
 
@@ -37,8 +42,8 @@
     <!-- Event Details on the Left -->
     <div class="flex mt-4">
       <div class="w-1/2 pr-4">
-        <p class="text-2xl text"><span class="font-bold">Start Date:</span> {event.startdate}</p>
-        <p class="text-2xl text"><span class="font-bold">End Date:</span> {event.enddate}</p>
+        <p class="text-2xl text"><span class="font-bold">Start Date:</span> {getReadableDate(event.startdate)}</p>
+        <p class="text-2xl text"><span class="font-bold">End Date:</span> {getReadableDate(event.enddate)}</p>
         <p class="text-2xl text"><span class="font-bold">Location:</span> {event.location}</p>
         <p class="text-2xl text"><span class="font-bold">Description:</span> {event.description}</p>
       </div>

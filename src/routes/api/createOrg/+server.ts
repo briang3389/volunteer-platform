@@ -5,15 +5,15 @@ import type { RequestHandler } from "@sveltejs/kit";
 export const POST = (async ({ request, cookies }) => {
     const data: CreateOrgOptions = await request.json();
 
-    if (data.name == null || data.password == null) {
+    if (data.name == null || data.password == null || data.profilePicUrl == null || data.description == null) {
         return apiError();
     }
 
     const db = await getDb();
 
     const query = {
-        text: "INSERT INTO Organizations (name, password, description, icon_url) VALUES ($1, $2, '', $3) RETURNING Organizations.orgid",
-        values: [data.name, await hashPassword(data.password), data.profilePicUrl],
+        text: "INSERT INTO Organizations (name, password, description, icon_url) VALUES ($1, $2, $3, $4) RETURNING Organizations.orgid",
+        values: [data.name, await hashPassword(data.password), data.description, data.profilePicUrl],
     };
 
     let result;
