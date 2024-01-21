@@ -8,6 +8,7 @@
   let userProfileUrl = ''; // Variable to store the user profile URL
   export let logoUrl = '/logo.png';
   let searchQuery = ''; // Variable to hold the search query
+  let theName = 'Dude';
 
   async function handleLogout() {
     try {
@@ -39,6 +40,7 @@
       });
       const result = await response.json();
       userProfileUrl = `/volunteers/${result.data[0].username}`;
+      theName = result.data[0].name;
       //console.log(result);
       //console.log(userProfileUrl);
       return;
@@ -54,6 +56,7 @@
       });
       const result = await response.json();
       userProfileUrl = `/orgs/${result.data[0].name}`;
+      theName = result.data[0].name;
       //console.log(result);
       //console.log(userProfileUrl);
       return;
@@ -115,7 +118,7 @@
       <!-- User Session Area -->
       <div class="flex items-center flex-shrink-0">
         {#if isLoggedIn}
-          <span class="text-gray-800 text-sm font-semibold mr-4">Welcome back, {'Dude'}!</span>
+          <span class="text-gray-800 text-sm font-semibold mr-4">Welcome back, {theName}!</span>
           <button class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium" on:click={() => goto(userProfileUrl)}>
             My Profile
           </button>
