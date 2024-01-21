@@ -2,9 +2,11 @@
 <script>
   import { loginUser } from '$lib/login';
   import { goto } from '$app/navigation';
+	import TopBar from '$lib/TopBar.svelte';
   let username = '';
   let password = '';
   let error = false;
+  export let data;
 
   const handleSubmit = async (event) => {
     try {
@@ -15,11 +17,11 @@
       }
     } catch (error) {
       error = true;
-      // Handle login errors
-      console.error(error);
     }
   };
 </script>
+
+<TopBar token={data.token}/>
 
 <form class="w-full max-w-sm mx-auto mt-6" on:submit|preventDefault={handleSubmit}>
   <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" bind:value={username} placeholder="Username" />

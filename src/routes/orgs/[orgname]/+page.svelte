@@ -100,22 +100,4 @@
     text-align: left;
     margin-bottom: 20px;
   }
-
-  .contact-header {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-
-  .profile-email-header {
-    font-size: 1.5rem;
-  }
-
-  .profile-email {
-    color: #555;
-  }
-
-  .contact-container {
-    padding-bottom: 1rem;
-  }
 </style>

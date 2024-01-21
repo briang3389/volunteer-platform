@@ -40,7 +40,7 @@
 
                 })
         });
-        alert("Hours claimed successfully");
+        window.location = "/";
         return {
             status: await res.status,
             body: await res.json()

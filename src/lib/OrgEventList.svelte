@@ -2,7 +2,7 @@
 
     function getReadableDate(isoString: string) {
         let date = new Date(isoString);
-        return date.toDateString() + " " + date.toLocaleTimeString("en-US");
+        return date.toDateString();
     }
     export let orgid: number;
 

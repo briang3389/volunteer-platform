@@ -2,34 +2,27 @@
   import TopBar from '$lib/TopBar.svelte';
 import { onMount } from 'svelte';
 
-  //let volunteers = [{name: "John Doe", claimedHours: 10}, {name: "Jane Doe", claimedHours: 5}];
   let volunteers = [];
   export let data;
   async function fetchVolunteers() {
     try {
-      // Make a POST request to the backend endpoint
       const response = await fetch('/api/get/org/eventlog2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        // Include credentials if needed for authentication
         credentials: 'include'
       });
 
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
-          // Transform the data as needed to fit your frontend structure
           volunteers = data.data.filter(vol => !vol.verified).map(vol => ({
-            id: vol.userid, // Assuming this is the identifier for a volunteer
-            name: vol.name, // Replace with actual logic to get the name
+            id: vol.userid, 
+            name: vol.name,
             claimedHours: vol.hours,
             eventid: vol.eventid
-            // Include any other necessary fields
           }));
-        } else {
-          // Handle the case where the backend response is not successful
         }
       } else {
         console.error('Error fetching volunteer data:', response.statusText);

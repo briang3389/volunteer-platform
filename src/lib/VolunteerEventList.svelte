@@ -8,7 +8,7 @@
 
     function getReadableDate(isoString: string) {
         let date = new Date(isoString);
-        return date.toDateString() + " " + date.toLocaleTimeString("en-US");
+        return date.toDateString();
     }
 
     async function getEvents() {
@@ -63,7 +63,6 @@
         {#if events.length !== 0}
             {#each events as data }
             <div class="event-container shadow-lg">
-                <img src={data.data[0].icon_url} alt="" class="event-icon">
                 <div class="event-block">
                     <div class="flex items-center"> <!-- Added flex container for alignment -->
                     {#if data.data[0].name !== 'No events'}

@@ -2,18 +2,19 @@
   import { createUser, createOrg } from "$lib/login";
   import { goto } from '$app/navigation';
   import { onDestroy } from 'svelte';
+	import TopBar from "$lib/TopBar.svelte";
 
-  let accountType = 'volunteer'; // Default account type
-  let name = ''; // Variable to store the user's name
-  let username = ''; // Variable to store the username
-  let email = ''; // Variable to store the email
-  let password = ''; // Variable to store the password
+  let accountType = 'volunteer';
+  let name = '';
+  let username = '';
+  let email = '';
+  let password = '';
   let description = '';
   let error = false;
+  export let data;
 
-  let profilePicUrl = '/default_profile_pic.jpg'; // Variable to store the profile picture URL
+  let profilePicUrl = '/default_profile_pic.jpg';
 
-  // Function to handle form submission
   const handleSubmit = async () => {
     try {
       let success = false;
@@ -35,7 +36,7 @@
       }
 
       if (success) {
-        window.locarion = "/";
+        window.location = "/";
       } else {
         error = true;
       }
@@ -45,9 +46,10 @@
   };
 
   onDestroy(() => {
-    // Cleanup or unsubscribing from stores if necessary
   });
 </script>
+
+<TopBar token={data.token}/>
 
 <form on:submit|preventDefault={handleSubmit} class="max-w-md mx-auto p-4">
   {#if accountType === "volunteer"}

@@ -1,15 +1,14 @@
 <script>
   import { goto } from '$app/navigation';
-  //import { userSession } from '$lib/sessionStore';
   import { onMount } from 'svelte';
   import { getLoginData } from "$lib/client_get_loggin_data";
 
 
   let isLoggedIn = false;
-  let userProfileUrl = ''; // Variable to store the user profile URL
+  let userProfileUrl = '';
   export let logoUrl = '/logo.png';
   export let token;
-  let searchQuery = ''; // Variable to hold the search query
+  let searchQuery = '';
   let theName = 'Dude';
 
   async function handleLogout() {
@@ -29,7 +28,7 @@
 
   function handleSearchSubmit() {
     const encodedQuery = encodeURIComponent(searchQuery);
-    if (encodedQuery === ''){
+    if (encodedQuery == ''){
       return;
     }
     goto(`/search/keyword/${encodedQuery}`);
@@ -49,11 +48,8 @@
         const result = await response.json();
         userProfileUrl = `/volunteers/${result.data[0].username}`;
         theName = result.data[0].name;
-        //console.log(result);
-        //console.log(userProfileUrl);
         return;
       } catch (error) {
-        //console.error('Failed to fetch user profile. trying orgs:', error);
       }
     } else if (loginData?.type === "org") {
       try {
@@ -66,8 +62,6 @@
         const result = await response.json();
         userProfileUrl = `/orgs/${result.data[0].name}`;
         theName = result.data[0].name;
-        //console.log(result);
-        //console.log(userProfileUrl);
         return;
       } catch (error) {
         console.error('Failed to fetch user/org profile:', error);
@@ -103,8 +97,8 @@
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div class="flex items-center flex-shrink-0 cursor-pointer" on:click={() => goto('/')}>
-        <img src={logoUrl} alt="Volunteer.io Logo" class="h-8 w-8 mr-2" />
-        <h1 class="text-2xl font-bold text-gray-900">Volunteer.io</h1>
+        <img src={logoUrl} alt="Volunteer Me Logo" class="h-8 w-8 mr-2" />
+        <h1 class="text-2xl font-bold text-gray-900">Volunteer Me</h1>
       </div>
 
       <!-- Search Bar Container -->

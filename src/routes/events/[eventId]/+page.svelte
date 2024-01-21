@@ -12,14 +12,13 @@
   const showQrCode = event != null && loginData?.type == "org" && loginData?.id === Number(event.orgid);
   function getReadableDate(isoString: string) {
         let date = new Date(isoString);
-        return date.toDateString() + " " + date.toLocaleTimeString("en-US");
+        return date.toDateString();
   }
 
   async function getQrData(url: string) {
       return generateQRCode(url, 500, 500);
   }
 
-  // Dummy QR code data, replace with actual data
   let qrArg = `https://localhost:5173/claim/?eventid=${data?.eventid}&orgid=${event?.orgid}`;
 
   </script>

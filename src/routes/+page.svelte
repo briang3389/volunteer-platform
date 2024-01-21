@@ -7,11 +7,6 @@
 
   const loginData = getLoginData(data.token);
 
-  //let username = '';
-  //const unsubscribe = userSession.subscribe($userSession => {
-  //  username = $userSession ? $userSession.username : '';
-  //});
-
   function navigateToSearch() {
     goto('/search/keyword/%20');
   }

@@ -23,7 +23,6 @@ export const POST = (async ({ request } ) => {
 		return new Response(JSON.stringify({ success: true}));
 	}
 	catch (err:unknown) {
-		// return new Response(JSON.stringify({ success: false }));
 		if (err instanceof Error){
 			throw error(500, err.message);
 		}

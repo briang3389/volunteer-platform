@@ -11,7 +11,6 @@ export const POST = (async ({ request, cookies } ) => {
 		return new Response(JSON.stringify({ success: false, data: []}))
 	}
     let query = null;
-    console.log(eventid, userid, orgid, verified);
     if (verified) {
         query = {
             name: 'update-eventlog',

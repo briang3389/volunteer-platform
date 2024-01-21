@@ -9,7 +9,6 @@
     let searchResults = data.initialSearchResults;
 
     async function getSearchResults() {
-        console.log(searchTerm);
         const response = await fetch("/api/search/keyword", {
             method: "POST",
             headers: {
