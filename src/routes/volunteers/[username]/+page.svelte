@@ -16,7 +16,6 @@
         });
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
             return {success: true, info: data};
         } else {
             return {success: false, info: []}

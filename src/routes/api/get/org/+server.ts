@@ -7,6 +7,7 @@ import pg from 'pg';
 export const POST = (async ({ request } ) => {
 	const pool: pg.Pool= await getDb();
 	let { name } = await request.json();
+	console.log(name);
 
 	const query = {
 		name: 'get-org',
