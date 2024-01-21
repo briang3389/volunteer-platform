@@ -83,20 +83,10 @@
     padding-left: 1rem;
   }
 
-  .search-container {
-    float:right;
-    padding-right: 3rem;
-  }
-
   .description-container {
     font-size: 1.5rem;
     text-align: left;
     margin-bottom: 20px;
-  }
-
-  .totals {
-    font-size: 2rem;
-    font-weight: bold;
   }
 
   .contact-header {

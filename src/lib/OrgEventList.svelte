@@ -61,8 +61,6 @@
 
 
 <style>
-  .events-container {
-  }
 
   .event-container {
     display: grid;
@@ -85,5 +83,6 @@
     width: 35%;
     margin: auto;
     text-align: center;
+    width: max-content;
   }
 </style>

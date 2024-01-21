@@ -59,11 +59,16 @@
             <div class="event-container">
                 <img src={icon_url} alt="" class="event-icon">
                 <div class="event-block">
-                <h2 class="text-2xl font-bold">{name}</h2>
-                <p class="text-lg">{description}</p>
-                <p class="text-lg">Dates: {startdate} - {enddate}</p>
-                <p class="text-lg">{location}</p>
-                <a href="../events/{eventid}" class="text-blue-500 underline">Event Page</a>
+                    <div class="flex items-center"> <!-- Added flex container for alignment -->
+                    <img src="{icon_url}" alt="{name} Image" class="event-picture mr-4 object-cover rounded-full"> <!-- Adjust the image size as needed -->
+                        <div>
+                            <h2 class="text-2xl font-bold">{name}</h2>
+                            <p class="text-lg">{description}</p>
+                            <p class="text-lg">Dates: {startdate} - {enddate}</p>
+                            <p class="text-lg">{location}</p>
+                            <a href="../events/{eventid}" class="text-blue-500 underline">Event Page</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             {/each}
@@ -78,19 +83,19 @@
 
 
 <style>
-.events-container {
-    width: 100%;
-}
 
 .event-container {
     display: grid;
-    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    width: 50rem;
+    border: 0.4rem solid #999;
+    border-radius: 1rem;
   }
 
   .event-block {
-    border: 0.4rem solid #999;
-    border-radius: 10%;
     padding: 10px;
+    width: 35%;
+    margin: auto;
     text-align: center;
   }
 
