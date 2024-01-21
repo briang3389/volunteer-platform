@@ -8,9 +8,18 @@
   export let logoUrl = '/logo.png';
   let searchQuery = ''; // Variable to hold the search query
 
-  function handleLogout() {
-    //userSession.set(null);
-    //DELETE COOKIE
+  async function handleLogout() {
+    try {
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        }
+      });
+      isLoggedIn = false;
+    } catch (error) {
+      console.error('Failed to validate login:', error);
+    }
     goto('/');
   }
 

@@ -80,6 +80,15 @@ export function checkCookieExists(cookies: Cookies): boolean {
     return cookie !== undefined;
 }
 
+export function deleteCookie(cookies: Cookies) {
+    cookies.set(TOKEN_COOKIE_NAME, "", {
+        maxAge: 0,
+        path: "/",
+        sameSite: true,
+        httpOnly: false,
+    });
+}
+
 export function setLoggedInCokie(cookies: Cookies, userid: Number, userType: AccountType) {
     let data;
     if (userType === "user") {
