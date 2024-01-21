@@ -59,7 +59,7 @@
   }
 
   .event-block {
-    border: 0.4rem solid #ccc;
+    border: 0.4rem solid #999;
     border-radius: 10%;
     padding: 10px;
     text-align: center;
