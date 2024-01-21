@@ -13,7 +13,7 @@ export const POST = (async ({ request, cookies } ) => {
 	}
 	const query = {
 		name: 'get-user-eventlog',
-		text: 'SELECT eventid, orgid, hours, verified, date FROM EventLog INNER JOIN Users ON Users.userid = EventLog.userid WHERE Users.userid = $1;',
+		text: 'SELECT eventid, orgid, hours, verified, date FROM EventLog INNER JOIN Users ON Users.userid = EventLog.userid WHERE Users.userid = $1 AND verified',
 		values: [userid],
 	}
 
